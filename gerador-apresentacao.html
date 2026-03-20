@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gerador de Apresentação · 99jobs</title>
+<script src="https://cdn.jsdelivr.net/npm/pptxgenjs@3.12.0/dist/pptxgen.bundle.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --navy: #0D1B5E;
+  --blue: #1565C0;
+  --accent: #2196F3;
+  --bg: #f5f7fa;
+  --surface: #ffffff;
+  --border: #e2e8f0;
+  --text: #1a2236;
+  --muted: #64748b;
+  --radius: 14px;
+  --shadow: 0 2px 16px rgba(13,27,94,0.08);
+}
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+}
+
+/* TOP BAR */
+.topbar {
+  background: var(--navy);
+  padding: 0 40px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.topbar-logo {
+  font-family: 'Syne', sans-serif;
+  font-size: 20px;
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: -0.02em;
+}
+.topbar-logo span { color: var(--accent); }
+.topbar-sep { width: 1px; height: 20px; background: rgba(255,255,255,0.2); }
+.topbar-sub { font-size: 13px; color: rgba(255,255,255,0.5); font-weight: 300; }
+
+/* LAYOUT */
+.container { max-width: 960px; margin: 0 auto; padding: 40px 24px 80px; }
+
+h1 {
+  font-family: 'Syne', sans-serif;
+  font-size: 28px; font-weight: 800;
+  letter-spacing: -0.03em; color: var(--navy);
+  margin-bottom: 6px;
+}
+.subtitle { color: var(--muted); font-size: 14px; margin-bottom: 36px; }
+
+/* SECTIONS */
+.section {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 28px 32px;
+  margin-bottom: 20px;
+  box-shadow: var(--shadow);
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 22px;
+}
+.section-num {
+  width: 28px; height: 28px; border-radius: 50%;
+  background: var(--navy);
+  color: #fff;
+  font-family: 'Syne', sans-serif;
+  font-size: 13px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.section-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 16px; font-weight: 700; color: var(--navy);
+}
+.section-hint { font-size: 12px; color: var(--muted); margin-left: auto; }
+
+/* GRID */
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+
+/* FORM FIELDS */
+.field { display: flex; flex-direction: column; gap: 6px; }
+.field label { font-size: 12px; font-weight: 600; color: var(--muted); letter-spacing: 0.05em; text-transform: uppercase; }
+.field input, .field textarea, .field select {
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 14px;
+  font-family: 'DM Sans', sans-serif;
+  color: var(--text);
+  background: #fafbfc;
+  transition: border-color 0.15s, box-shadow 0.15s;
+  width: 100%;
+}
+.field input:focus, .field textarea:focus, .field select:focus {
+  outline: none;
+  border-color: var(--blue);
+  box-shadow: 0 0 0 3px rgba(21,101,192,0.1);
+  background: #fff;
+}
+.field textarea { resize: vertical; min-height: 72px; }
+
+/* METRICS ROW */
+.metrics-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; }
+.metric-card {
+  border: 1.5px solid var(--border);
+  border-radius: 10px;
+  padding: 12px 10px;
+  display: flex; flex-direction: column; gap: 6px;
+  background: #fafbfc;
+}
+.metric-card .lbl { font-size: 10px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; }
+.metric-card input {
+  border: none; border-bottom: 1.5px solid var(--border);
+  border-radius: 0; background: transparent;
+  padding: 4px 0; font-size: 18px; font-weight: 700; color: var(--navy);
+  font-family: 'Syne', sans-serif;
+  width: 100%;
+}
+.metric-card input:focus { outline: none; border-bottom-color: var(--blue); }
+.metric-card small { font-size: 10px; color: var(--muted); }
+
+/* CANAIS */
+.canais-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.canal-card {
+  border: 1.5px solid var(--border);
+  border-radius: 10px; padding: 14px;
+  cursor: pointer; transition: border-color 0.15s, background 0.15s;
+  position: relative;
+}
+.canal-card.active { border-color: var(--blue); background: rgba(21,101,192,0.04); }
+.canal-card input[type="checkbox"] { position: absolute; top: 12px; right: 12px; accent-color: var(--blue); }
+.canal-card .canal-name { font-size: 13px; font-weight: 600; color: var(--navy); margin-bottom: 3px; }
+.canal-card .canal-desc { font-size: 11px; color: var(--muted); }
+
+/* CRONOGRAMA */
+.crono-row { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 12px; align-items: end; margin-bottom: 10px; }
+.add-btn {
+  background: none; border: 1.5px dashed var(--border);
+  border-radius: 8px; padding: 10px; color: var(--muted);
+  font-size: 13px; cursor: pointer; width: 100%;
+  font-family: 'DM Sans', sans-serif;
+  transition: border-color 0.15s, color 0.15s;
+}
+.add-btn:hover { border-color: var(--blue); color: var(--blue); }
+.remove-row { background: none; border: none; color: #ef4444; font-size: 18px; cursor: pointer; line-height: 1; padding: 8px 4px; align-self: end; }
+
+/* GENERATE BUTTON */
+.generate-wrap { margin-top: 28px; }
+#generate-btn {
+  width: 100%; padding: 18px;
+  background: var(--navy);
+  color: #fff; border: none;
+  border-radius: var(--radius);
+  font-family: 'Syne', sans-serif;
+  font-size: 17px; font-weight: 800;
+  letter-spacing: 0.01em; cursor: pointer;
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+  transition: transform 0.15s, box-shadow 0.15s, background 0.15s;
+}
+#generate-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 32px rgba(13,27,94,0.25);
+  background: #162275;
+}
+#generate-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+/* PROGRESS */
+#progress-bar { height: 4px; background: var(--border); border-radius: 99px; margin-top: 14px; display: none; overflow: hidden; }
+#progress-fill { height: 100%; background: var(--navy); width: 0%; transition: width 0.3s ease; border-radius: 99px; }
+
+/* PREVIEW AREA */
+.preview-note {
+  margin-top: 12px; text-align: center;
+  font-size: 12px; color: var(--muted);
+}
+
+/* TOAST */
+#toast {
+  position: fixed; bottom: 28px; left: 50%;
+  transform: translateX(-50%) translateY(80px);
+  background: #1e293b; color: #f1f5f9;
+  border-radius: 12px; padding: 14px 22px;
+  font-size: 14px; display: flex; align-items: center; gap: 10px;
+  transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1);
+  z-index: 999; white-space: nowrap;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.25);
+}
+#toast.show { transform: translateX(-50%) translateY(0); }
+#toast.success { border: 1px solid #22c55e; }
+#toast.error { border: 1px solid #ef4444; }
+
+@media (max-width: 640px) {
+  .grid-2, .grid-3, .metrics-grid, .canais-grid, .crono-row { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-logo">99<span>jobs</span></div>
+  <div class="topbar-sep"></div>
+  <div class="topbar-sub">Gerador de Apresentação de Divulgação</div>
+</div>
+
+<div class="container">
+  <h1>Gerador de Apresentação</h1>
+  <p class="subtitle">Preencha as informações abaixo e clique em "Gerar Apresentação" para baixar o arquivo .pptx pronto.</p>
+
+  <!-- 1. IDENTIFICAÇÃO -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">1</div>
+      <div class="section-title">Identificação do Programa</div>
+    </div>
+    <div class="grid-2" style="gap:16px">
+      <div class="field">
+        <label>Nome da Empresa Cliente</label>
+        <input type="text" id="empresa" placeholder="Ex: Siemens" />
+      </div>
+      <div class="field">
+        <label>Nome do Programa</label>
+        <input type="text" id="programa" placeholder="Ex: Estágio PDT 2026" />
+      </div>
+      <div class="field">
+        <label>Tipo de Apresentação</label>
+        <input type="text" id="tipo" placeholder="Ex: divulgação, recrutamento…" />
+      </div>
+      <div class="field">
+        <label>Data do Documento</label>
+        <input type="date" id="data-doc" />
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. OBJETIVO -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">2</div>
+      <div class="section-title">Objetivo da Divulgação</div>
+    </div>
+    <div class="field">
+      <label>Descrição do Objetivo</label>
+      <textarea id="objetivo" placeholder="Ex: A divulgação tem o objetivo de promover o programa e as oportunidades abertas para a atração de talentos potenciais…"></textarea>
+    </div>
+  </div>
+
+  <!-- 3. ESCOPO -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">3</div>
+      <div class="section-title">Escopo do Programa</div>
+      <span class="section-hint">Indicadores do público-alvo</span>
+    </div>
+    <div class="metrics-grid">
+      <div class="metric-card">
+        <div class="lbl">Nº de Vagas</div>
+        <input type="text" id="vagas" placeholder="61" />
+        <small>vagas abertas</small>
+      </div>
+      <div class="metric-card">
+        <div class="lbl">Localidades</div>
+        <input type="text" id="localidades" placeholder="SP, RS" style="font-size:13px;font-weight:500" />
+        <small>cidades/estados</small>
+      </div>
+      <div class="metric-card">
+        <div class="lbl">Áreas</div>
+        <input type="text" id="areas" placeholder="Exatas e Humanas" style="font-size:13px;font-weight:500" />
+        <small>de atuação</small>
+      </div>
+      <div class="metric-card">
+        <div class="lbl">Período</div>
+        <input type="text" id="periodo" placeholder="Jun/27–Jun/28" style="font-size:12px;font-weight:500" />
+        <small>duração</small>
+      </div>
+      <div class="metric-card">
+        <div class="lbl">Diversidade</div>
+        <input type="text" id="diversidade" placeholder="50% gênero, 30% raça" style="font-size:11px;font-weight:500" />
+        <small>metas</small>
+      </div>
+    </div>
+    <div class="field" style="margin-top:14px">
+      <label>Modalidade</label>
+      <input type="text" id="modalidade" placeholder="Ex: Híbridas e Presenciais" />
+    </div>
+  </div>
+
+  <!-- 4. CANAIS -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">4</div>
+      <div class="section-title">Canais de Divulgação</div>
+      <span class="section-hint">Selecione os que serão utilizados</span>
+    </div>
+    <div class="canais-grid" id="canais-grid">
+      <!-- Generated by JS -->
+    </div>
+  </div>
+
+  <!-- 5. MÉTRICAS ESPERADAS -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">5</div>
+      <div class="section-title">Expectativa de Alcance</div>
+    </div>
+    <div class="grid-2" style="gap:16px">
+      <div class="field">
+        <label>Perfis aderentes na base</label>
+        <input type="text" id="m-perfis" placeholder="Ex: 19.645" />
+      </div>
+      <div class="field">
+        <label>Ações exclusivas</label>
+        <input type="text" id="m-acoes" placeholder="Ex: +30" />
+      </div>
+      <div class="field">
+        <label>Impressões (Ads)</label>
+        <input type="text" id="m-impressoes" placeholder="Ex: 100.505" />
+      </div>
+      <div class="field">
+        <label>Visitas ao site</label>
+        <input type="text" id="m-visitas" placeholder="Ex: 30.149" />
+      </div>
+      <div class="field">
+        <label>Parceiros</label>
+        <input type="text" id="m-parceiros" placeholder="Ex: +30" />
+      </div>
+    </div>
+  </div>
+
+  <!-- 6. CRONOGRAMA -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">6</div>
+      <div class="section-title">Cronograma de Ações</div>
+    </div>
+    <div style="display:grid;grid-template-columns:120px 120px 1fr 36px;gap:10px;margin-bottom:8px;padding:0 4px;">
+      <span style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;">Início</span>
+      <span style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;">Fim</span>
+      <span style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;">Descrição</span>
+      <span></span>
+    </div>
+    <div id="crono-rows"></div>
+    <button class="add-btn" onclick="addCronoRow()">+ Adicionar etapa</button>
+  </div>
+
+  <!-- 7. DATAS IMPORTANTES -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">7</div>
+      <div class="section-title">Datas Importantes</div>
+    </div>
+    <div class="grid-2" style="gap:16px">
+      <div class="field">
+        <label>Data de Lançamento</label>
+        <input type="date" id="data-lancamento" />
+      </div>
+      <div class="field">
+        <label>Data de Encerramento</label>
+        <input type="date" id="data-encerramento" />
+      </div>
+    </div>
+  </div>
+
+  <!-- GERAR -->
+  <div class="generate-wrap">
+    <button id="generate-btn" onclick="gerarApresentacao()">
+      <span>⚡</span>
+      <span>Gerar Apresentação (.pptx)</span>
+    </button>
+    <div id="progress-bar"><div id="progress-fill"></div></div>
+    <p class="preview-note">O arquivo será baixado automaticamente após a geração.</p>
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<script>
+// ─── CANAIS DATA ──────────────────────────────────────────
+const CANAIS = [
+  { id: "newsletter", name: "Newsletter", desc: "Disparo semanal para base ativa" },
+  { id: "email", name: "E-mail Marketing", desc: "Disparos segmentados 99all" },
+  { id: "redes", name: "Editoriais & Redes Sociais", desc: "Instagram, LinkedIn, Facebook" },
+  { id: "ads", name: "Campanha Ads", desc: "Meta Ads + Indeed" },
+  { id: "parceiros", name: "Parceiros Estratégicos", desc: "Rede de parceiros 99jobs" },
+  { id: "ies", name: "Instituições de Ensino", desc: "Portais, grupos, WhatsApp" },
+];
+
+// Render canais
+const grid = document.getElementById('canais-grid');
+CANAIS.forEach(c => {
+  const div = document.createElement('div');
+  div.className = 'canal-card active';
+  div.innerHTML = `
+    <input type="checkbox" id="canal-${c.id}" checked>
+    <div class="canal-name">${c.name}</div>
+    <div class="canal-desc">${c.desc}</div>
+  `;
+  div.addEventListener('click', e => {
+    if (e.target.tagName === 'INPUT') return;
+    const cb = div.querySelector('input');
+    cb.checked = !cb.checked;
+    div.classList.toggle('active', cb.checked);
+  });
+  div.querySelector('input').addEventListener('change', function() {
+    div.classList.toggle('active', this.checked);
+  });
+  grid.appendChild(div);
+});
+
+// ─── CRONOGRAMA ───────────────────────────────────────────
+function addCronoRow(inicio='', fim='', desc='') {
+  const container = document.getElementById('crono-rows');
+  const row = document.createElement('div');
+  row.style.cssText = 'display:grid;grid-template-columns:120px 120px 1fr 36px;gap:10px;margin-bottom:10px;align-items:center';
+  row.innerHTML = `
+    <input type="date" value="${inicio}" style="border:1.5px solid var(--border);border-radius:8px;padding:9px 10px;font-size:13px;font-family:DM Sans,sans-serif;background:#fafbfc;">
+    <input type="date" value="${fim}" style="border:1.5px solid var(--border);border-radius:8px;padding:9px 10px;font-size:13px;font-family:DM Sans,sans-serif;background:#fafbfc;">
+    <input type="text" placeholder="Descrição da etapa" value="${desc}" style="border:1.5px solid var(--border);border-radius:8px;padding:9px 10px;font-size:13px;font-family:DM Sans,sans-serif;background:#fafbfc;width:100%">
+    <button class="remove-row" onclick="this.parentElement.remove()">×</button>
+  `;
+  container.appendChild(row);
+}
+
+// Default rows
+addCronoRow('', '', 'Lançamento nas redes sociais e e-mail marketing');
+addCronoRow('', '', 'Manutenção — reengajamento e campanha Ads');
+addCronoRow('', '', 'Finalização — últimas semanas, stories diários');
+
+// ─── HELPERS ─────────────────────────────────────────────
+function fmt(d) {
+  if (!d) return '';
+  const [y, m, day] = d.split('-');
+  return `${day}/${m}/${y}`;
+}
+function v(id) { return document.getElementById(id)?.value?.trim() || ''; }
+
+function showToast(msg, type='') {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'show ' + type;
+  clearTimeout(t._t);
+  t._t = setTimeout(() => t.className = '', 3500);
+}
+
+function setProgress(pct) {
+  document.getElementById('progress-fill').style.width = pct + '%';
+}
+
+// ─── COLORS ──────────────────────────────────────────────
+const NAVY   = '0D1B5E';
+const BLUE   = '1565C0';
+const LBLUE  = '2196F3';
+const WHITE  = 'FFFFFF';
+const LGRAY  = 'F5F7FA';
+const MGRAY  = 'E2E8F0';
+const DKGRAY = '64748B';
+
+// ─── SLIDE BUILDERS ──────────────────────────────────────
+function addSlide1_Cover(pres, empresa, programa) {
+  const s = pres.addSlide();
+  s.background = { color: NAVY };
+
+  // Grid-like dots background (subtle)
+  for (let r=0; r<8; r++) for (let c=0; c<14; c++) {
+    s.addShape(pres.ShapeType.oval, { x: 0.7*c, y: 0.7*r, w:0.04, h:0.04,
+      fill:{color:'FFFFFF',transparency:88}, line:{type:'none'} });
+  }
+
+  // Big title left
+  s.addText([
+    { text: 'Plano de\n', options:{} },
+    { text: 'Divulgação', options:{ color: LBLUE } },
+    { text: '.', options:{ color: WHITE } },
+  ], { x:0.7, y:1.2, w:5.5, h:3, fontFace:'Arial Black', fontSize:54, bold:true, color:WHITE, valign:'top' });
+
+  // Right block — client + program
+  s.addShape(pres.ShapeType.rect, { x:6.8, y:1.5, w:2.9, h:2.8, fill:{color:'FFFFFF',transparency:90}, line:{type:'none'} });
+  s.addText(empresa || 'Empresa', { x:6.95, y:1.8, w:2.6, h:0.6, fontFace:'Arial', fontSize:14, color:LBLUE, bold:true });
+  s.addText(programa || 'Programa', { x:6.95, y:2.35, w:2.6, h:0.8, fontFace:'Arial', fontSize:20, color:WHITE, bold:true, wrap:true });
+
+  // 99jobs watermark
+  s.addText('99jobs.com', { x:9.4, y:2.5, w:0.4, h:2, fontFace:'Arial', fontSize:8,
+    color:'FFFFFF', transparency:50, rotate:270 });
+
+  return s;
+}
+
+function addSlide2_Intro(pres, tipo, objetivo_curto) {
+  const s = pres.addSlide();
+  s.background = { color: NAVY };
+
+  // dots
+  for (let r=0; r<8; r++) for (let c=0; c<14; c++) {
+    s.addShape(pres.ShapeType.oval, { x:0.7*c, y:0.7*r, w:0.04, h:0.04,
+      fill:{color:'FFFFFF',transparency:88}, line:{type:'none'} });
+  }
+
+  s.addText([
+    { text: 'Essa é uma apresentação de\n', options:{} },
+    { text: tipo || 'divulgação', options:{ color: LBLUE } },
+    { text: '.', options:{ color: WHITE } },
+  ], { x:0.7, y:0.8, w:5.5, h:3, fontFace:'Arial Black', fontSize:40, bold:true, color:WHITE, valign:'top' });
+
+  // right side objective block
+  s.addShape(pres.ShapeType.rect, { x:6.0, y:3.2, w:0.05, h:1.6, fill:{color:LBLUE}, line:{type:'none'} });
+  s.addText('objetivos', { x:6.2, y:3.2, w:3.5, h:0.4, fontFace:'Arial', fontSize:13, color:WHITE, bold:true });
+  s.addText(objetivo_curto || '', { x:6.2, y:3.6, w:3.5, h:1.2, fontFace:'Arial', fontSize:11, color:'CADCFC', wrap:true });
+
+  s.addText('99jobs.com', { x:9.4, y:2.5, w:0.4, h:2, fontFace:'Arial', fontSize:8,
+    color:'FFFFFF', transparency:50, rotate:270 });
+}
+
+function addSlide3_Objetivo(pres, objetivo) {
+  const s = pres.addSlide();
+  s.background = { color: WHITE };
+
+  // Left accent line
+  s.addShape(pres.ShapeType.rect, { x:0.55, y:1.0, w:0.06, h:3.2, fill:{color:NAVY}, line:{type:'none'} });
+  s.addText('Objetivo', { x:0.7, y:3.8, w:2.5, h:0.9, fontFace:'Arial Black', fontSize:28, color:NAVY, bold:true });
+  s.addText(objetivo || '', { x:0.75, y:1.0, w:8.8, h:3, fontFace:'Arial', fontSize:14, color:'1a2236', wrap:true, valign:'top', align:'justify' });
+
+  s.addText('99jobs.com', { x:9.4, y:2.5, w:0.4, h:2, fontFace:'Arial', fontSize:8,
+    color:NAVY, transparency:60, rotate:270 });
+}
+
+function addSlide4_Escopo(pres, vagas, localidades, areas, periodo, diversidade, modalidade) {
+  const s = pres.addSlide();
+  s.background = { color: WHITE };
+
+  s.addText('escopo do', { x:0.5, y:0.4, w:3, h:0.45, fontFace:'Arial', fontSize:18, color:LBLUE });
+  s.addText('programa', { x:0.5, y:0.8, w:3, h:0.45, fontFace:'Arial', fontSize:18, color:LBLUE });
+  s.addText('segmentação dos requisitos alinhado ao público-alvo', { x:0.5, y:1.25, w:2.5, h:0.7, fontFace:'Arial', fontSize:9, color:DKGRAY, wrap:true });
+
+  s.addText([
+    { text: 'Estes ', options:{} },
+    { text: 'indicadores', options:{ bold:true } },
+    { text: ' serão base para as ', options:{} },
+    { text: 'ações de divulgação', options:{ bold:true } },
+    { text: '.', options:{} },
+  ], { x:0.5, y:3.5, w:2.5, h:1.5, fontFace:'Arial', fontSize:12, color:DKGRAY, wrap:true });
+
+  const cards = [
+    { icon:'📋', label: vagas ? vagas+' vagas' : '—', sub:'' },
+    { icon:'📍', label: localidades || '—', sub:'' },
+    { icon:'🎓', label: areas || '—', sub:'Áreas de atuação' },
+    { icon:'⚖️', label: diversidade || '—', sub:'' },
+    { icon:'💻', label: modalidade || '—', sub:'' },
+    { icon:'📅', label: periodo || '—', sub:'' },
+  ];
+
+  const cols = [3.4, 6.0, 8.6];
+  const rows = [0.55, 2.65];
+  cards.forEach((c, i) => {
+    const col = i % 3; const row = Math.floor(i/3);
+    const cx = cols[col]; const cy = rows[row];
+    s.addShape(pres.ShapeType.roundRect, { x:cx, y:cy, w:2.2, h:1.9,
+      fill:{color:'F8FAFC'}, line:{color:MGRAY,width:1},
+      shadow:{type:'outer',color:'000000',blur:6,offset:2,angle:135,opacity:0.07} });
+    s.addText(c.icon, { x:cx+0.1, y:cy+0.15, w:2.0, h:0.55, fontFace:'Segoe UI Emoji', fontSize:22, align:'center' });
+    s.addText(c.label, { x:cx+0.1, y:cy+0.75, w:2.0, h:0.7, fontFace:'Arial', fontSize:11, bold:true, color:NAVY, align:'center', wrap:true });
+    if (c.sub) s.addText(c.sub, { x:cx+0.1, y:cy+1.4, w:2.0, h:0.4, fontFace:'Arial', fontSize:9, color:DKGRAY, align:'center' });
+  });
+
+  s.addText('99jobs.com', { x:9.4, y:2.5, w:0.4, h:2, fontFace:'Arial', fontSize:8, color:NAVY, transparency:60, rotate:270 });
+}
+
+function addSlide5_Section(pres, title1, title2, sub) {
+  const s = pres.addSlide();
+  s.background = { color: NAVY };
+  for (let r=0; r<8; r++) for (let c=0; c<14; c++) {
+    s.addShape(pres.ShapeType.oval, { x:0.7*c, y:0.7*r, w:0.04, h:0.04,
+      fill:{color:'FFFFFF',transparency:88}, line:{type:'none'} });
+  }
+  s.addText(title1+'\n'+title2+'.', {
+    x:0.7, y:0.9, w:6, h:3,
+    fontFace:'Arial Black', fontSize:46, bold:true, color:WHITE, valign:'top', wrap:true
+  });
+  // override last word color trick: just use plain
+  s.addShape(pres.ShapeType.rect, { x:6.0, y:3.8, w:0.05, h:1.1, fill:{color:LBLUE}, line:{type:'none'} });
+  s.addText(sub, { x:6.2, y:3.8, w:3.5, h:1.1, fontFace:'Arial', fontSize:11, color:'CADCFC', wrap:true });
+  s.addText('99jobs.com', { x:9.4, y:2.5, w:0.4, h:2, fontFace:'Arial', fontSize:8, color:'FFFFFF', transparency:50, rotate:270 });
+}
+
+function addSlide6_Canais(pres, selecionados) {
+  const s = pres.addSlide();
+  s.background = { color: WHITE };
+
+  s.addText('redes e canais', { x:0.5, y:0.35, w:5, h:0.4, fontFace:'Arial', fontSize:14, color:LBLUE, bold:true });
+  s.addText('da 99jobs', { x:0.5, y:0.72, w:5, h:0.4, fontFace:'Arial', fontSize:14, color:DKGRAY });
+  s.addText('Combinação de canais orgânicos e pagos para máximo alcance do público-alvo.', {
+    x:0.5, y:1.15, w:5, h:0.5, fontFace:'Arial', fontSize:11, color:DKGRAY, wrap:true });
+
+  const icons  = ['📬','📧','📱','🎯','🤝','🏫'];
+  const layout = [[0.5,1.9],[0.5,3.2],[5.3,1.9],[5.3,3.2],[0.5,4.5],[5.3,4.5]];
+
+  selecionados.forEach((c, i) => {
+    if (i >= 6) return;
+    const [cx, cy] = layout[i] || [0.5, 1.9 + i*1.3];
+    s.addShape(pres.ShapeType.roundRect, { x:cx, y:cy, w:4.5, h:1.05,
+      fill:{color:'F8FAFC'}, line:{color:MGRAY,width:1},
+      shadow:{type:'outer',color:'000000',blur:4,offset:2,angle:135,opacity:0.06} });
+    s.addText(icons[i]||'●', { x:cx+0.12, y:cy+0.2, w:0.55, h:0.55, fontFace:'Segoe UI Emoji', fontSize:20 });
+    s.addText(c.name, { x:cx+0.75, y:cy+0.08, w:3.6, h:0.4, fontFace:'Arial', fontSize:12, bold:true, color:NAVY });
+    s.addText(c.desc, { x:cx+0.75, y:cy+0.5, w:3.6, h:0.45, fontFace:'Arial', fontSize:10, color:DKGRAY, wrap:true });
+  });
+
+  s.addText('99jobs.com', { x:9.4, y:2.5, w:0.4, h:2, fontFace:'Arial', fontSize:8, color:NAVY, transparency:60, rotate:270 });
+}
+
+function addSlide7_Cronograma(pres, rows, lancamento, encerramento) {
+  const s = pres.addSlide();
+  s.background = { color: WHITE };
+
+  s.addText('nossa linha do tempo', { x:0.5, y:0.3, w:5, h:0.4, fontFace:'Arial', fontSize:14, color:LBLUE, bold:true });
+  s.addText('cronograma de ações', { x:0.5, y:0.65, w:5, h:0.35, fontFace:'Arial', fontSize:11, color:DKGRAY });
+
+  // Timeline bar
+  s.addShape(pres.ShapeType.rect, { x:0.5, y:1.4, w:9.0, h:0.12, fill:{color:MGRAY}, line:{type:'none'} });
+  s.addShape(pres.ShapeType.oval, { x:0.45, y:1.32, w:0.28, h:0.28, fill:{color:NAVY}, line:{type:'none'} });
+  s.addShape(pres.ShapeType.oval, { x:9.27, y:1.32, w:0.28, h:0.28, fill:{color:BLUE}, line:{type:'none'} });
+  s.addText('Lançamento\n'+(lancamento?fmt(lancamento):''), { x:0.1, y:1.65, w:1.5, h:0.6, fontFace:'Arial', fontSize:9, color:NAVY, bold:true });
+  s.addText('Encerramento\n'+(encerramento?fmt(encerramento):''), { x:8.5, y:1.65, w:1.4, h:0.6, fontFace:'Arial', fontSize:9, color:BLUE, bold:true, align:'right' });
+
+  rows.forEach((r, i) => {
+    const cy = 2.4 + i*0.75;
+    s.addShape(pres.ShapeType.rect, { x:0.5, y:cy, w:0.06, h:0.55, fill:{color:i%2===0?NAVY:LBLUE}, line:{type:'none'} });
+    const period = (r.inicio||r.fim) ? `${fmt(r.inicio)} – ${fmt(r.fim)}` : '';
+    s.addText(r.desc || '', { x:0.7, y:cy, w:6.5, h:0.3, fontFace:'Arial', fontSize:11, color:NAVY, bold:true });
+    s.addText(period, { x:7.3, y:cy, w:2.1, h:0.3, fontFace:'Arial', fontSize:10, color:DKGRAY, align:'right' });
+    if (r.desc) {
+      s.addShape(pres.ShapeType.rect, { x:0.7, y:cy+0.3, w:8.7, h:0.001, fill:{color:MGRAY}, line:{type:'none'} });
+    }
+  });
+
+  s.addText('99jobs.com', { x:9.4, y:2.5, w:0.4, h:2, fontFace:'Arial', fontSize:8, color:NAVY, transparency:60, rotate:270 });
+}
+
+function addSlide8_Metricas(pres, perfis, acoes, impressoes, visitas, parceiros) {
+  const s = pres.addSlide();
+  s.background = { color: WHITE };
+
+  s.addText('expectativa | ações e alcance por canal', { x:0.5, y:0.3, w:9, h:0.45, fontFace:'Arial', fontSize:16, color:NAVY, bold:false });
+
+  const metrics = [
+    { icon:'👤', val: perfis||'—', label:'perfis aderentes\nna plataforma', col: 0 },
+    { icon:'📣', val: acoes||'—', label:'ações exclusivas\n(e-mails, whatsapp e redes)', col: 1 },
+    { icon:'🏛️', val: parceiros||'—', label:'parceiros', col: 2 },
+    { icon:'📊', val: impressoes||'—', label:'impressões com a\ncampanha de Ads', col: 3, wide:true },
+    { icon:'🌐', val: visitas||'—', label:'visitas ao site durante\no período de inscrições', col: 4, wide:true },
+  ];
+
+  const top3 = metrics.slice(0,3);
+  const bot2 = metrics.slice(3);
+
+  top3.forEach((m, i) => {
+    const cx = 0.5 + i*3.1; const cy = 0.95;
+    s.addShape(pres.ShapeType.rect, { x:cx, y:cy, w:2.85, h:1.9, fill:{color:NAVY},
+      shadow:{type:'outer',color:'000000',blur:8,offset:2,angle:135,opacity:0.12} });
+    s.addText(m.icon, { x:cx+0.15, y:cy+0.1, w:2.55, h:0.55, fontFace:'Segoe UI Emoji', fontSize:24, align:'center' });
+    s.addText(m.val, { x:cx+0.1, y:cy+0.65, w:2.65, h:0.55, fontFace:'Arial Black', fontSize:22, color:WHITE, bold:true, align:'center' });
+    s.addText(m.label, { x:cx+0.1, y:cy+1.15, w:2.65, h:0.65, fontFace:'Arial', fontSize:9, color:'CADCFC', align:'center', wrap:true });
+  });
+
+  bot2.forEach((m, i) => {
+    const cx = 1.8 + i*3.7; const cy = 3.1;
+    s.addShape(pres.ShapeType.rect, { x:cx, y:cy, w:3.3, h:1.9, fill:{color:NAVY},
+      shadow:{type:'outer',color:'000000',blur:8,offset:2,angle:135,opacity:0.12} });
+    s.addText(m.icon, { x:cx+0.15, y:cy+0.1, w:3.0, h:0.55, fontFace:'Segoe UI Emoji', fontSize:24, align:'center' });
+    s.addText(m.val, { x:cx+0.1, y:cy+0.65, w:3.1, h:0.55, fontFace:'Arial Black', fontSize:22, color:WHITE, bold:true, align:'center' });
+    s.addText(m.label, { x:cx+0.1, y:cy+1.15, w:3.1, h:0.65, fontFace:'Arial', fontSize:9, color:'CADCFC', align:'center', wrap:true });
+  });
+
+  s.addText('99jobs.com', { x:9.4, y:2.5, w:0.4, h:2, fontFace:'Arial', fontSize:8, color:NAVY, transparency:60, rotate:270 });
+}
+
+function addSlide9_Encerramento(pres, empresa, programa) {
+  const s = pres.addSlide();
+  s.background = { color: NAVY };
+  for (let r=0; r<8; r++) for (let c=0; c<14; c++) {
+    s.addShape(pres.ShapeType.oval, { x:0.7*c, y:0.7*r, w:0.04, h:0.04,
+      fill:{color:'FFFFFF',transparency:88}, line:{type:'none'} });
+  }
+  s.addText('Obrigado!', { x:0.7, y:1.2, w:8, h:1.2, fontFace:'Arial Black', fontSize:54, bold:true, color:WHITE });
+  s.addText(empresa ? `Sucesso no ${programa||'programa'}, ${empresa}! 🚀` : '',
+    { x:0.7, y:2.6, w:7, h:0.6, fontFace:'Arial', fontSize:18, color:LBLUE });
+  s.addText('Dúvidas? Fale com o time da 99jobs.', { x:0.7, y:3.4, w:7, h:0.4, fontFace:'Arial', fontSize:13, color:'CADCFC' });
+  s.addShape(pres.ShapeType.rect, { x:0.7, y:4.1, w:2, h:0.55,
+    fill:{color:LBLUE}, line:{type:'none'} });
+  s.addText('99jobs.com', { x:0.7, y:4.1, w:2, h:0.55, fontFace:'Arial Black', fontSize:14, color:WHITE, bold:true, align:'center', valign:'middle' });
+  s.addText('99jobs.com', { x:9.4, y:2.5, w:0.4, h:2, fontFace:'Arial', fontSize:8, color:'FFFFFF', transparency:50, rotate:270 });
+}
+
+// ─── MAIN GENERATOR ──────────────────────────────────────
+async function gerarApresentacao() {
+  const btn = document.getElementById('generate-btn');
+  const pb   = document.getElementById('progress-bar');
+  btn.disabled = true;
+  pb.style.display = 'block';
+
+  try {
+    const empresa    = v('empresa');
+    const programa   = v('programa');
+    const tipo       = v('tipo') || 'divulgação';
+    const objetivo   = v('objetivo');
+    const vagas      = v('vagas');
+    const localidades= v('localidades');
+    const areas      = v('areas');
+    const periodo    = v('periodo');
+    const diversidade= v('diversidade');
+    const modalidade = v('modalidade');
+    const lancamento = v('data-lancamento');
+    const encerramento = v('data-encerramento');
+
+    const perfis     = v('m-perfis');
+    const acoes      = v('m-acoes');
+    const impressoes = v('m-impressoes');
+    const visitas    = v('m-visitas');
+    const parceiros  = v('m-parceiros');
+
+    // Canais selecionados
+    const canaisSel = CANAIS.filter(c => document.getElementById('canal-'+c.id)?.checked);
+
+    // Cronograma
+    const cronoRows = [...document.getElementById('crono-rows').querySelectorAll('div')].map(row => {
+      const inputs = row.querySelectorAll('input');
+      return { inicio: inputs[0]?.value||'', fim: inputs[1]?.value||'', desc: inputs[2]?.value||'' };
+    }).filter(r => r.desc);
+
+    setProgress(10);
+    await sleep(30);
+
+    const pres = new PptxGenJS();
+    pres.layout = 'LAYOUT_16x9';
+    pres.author  = '99jobs';
+    pres.title   = `Plano de Divulgação – ${empresa}`;
+
+    setProgress(20); addSlide1_Cover(pres, empresa, programa);
+    setProgress(30); addSlide2_Intro(pres, tipo, objetivo.slice(0,160));
+    setProgress(40); addSlide3_Objetivo(pres, objetivo);
+    setProgress(50); addSlide4_Escopo(pres, vagas, localidades, areas, periodo, diversidade, modalidade);
+    setProgress(55); addSlide5_Section(pres, 'Nossas soluções', 'estratégicas', 'Soluções do nosso time, focadas no escopo do programa, para assertividade na atração de talentos potenciais.');
+
+    setProgress(65);
+    if (canaisSel.length > 0) addSlide6_Canais(pres, canaisSel);
+
+    setProgress(75);
+    if (cronoRows.length > 0) addSlide7_Cronograma(pres, cronoRows, lancamento, encerramento);
+
+    setProgress(85); addSlide8_Metricas(pres, perfis, acoes, impressoes, visitas, parceiros);
+    setProgress(95); addSlide9_Encerramento(pres, empresa, programa);
+
+    const fileName = `Plano_Divulgacao_${empresa||'99jobs'}_${new Date().toISOString().slice(0,10)}.pptx`;
+    await pres.writeFile({ fileName });
+
+    setProgress(100);
+    showToast('✅ Apresentação gerada com sucesso!', 'success');
+
+  } catch (err) {
+    console.error(err);
+    showToast('❌ Erro ao gerar apresentação: ' + err.message, 'error');
+  } finally {
+    btn.disabled = false;
+    setTimeout(() => { pb.style.display='none'; setProgress(0); }, 800);
+  }
+}
+
+function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
+</script>
+</body>
+</html>
