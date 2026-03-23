@@ -1,14 +1,12 @@
 <!DOCTYPE html>
-<html lang="pt-PT">
+<html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Gerador de Apresentação · 99jobs All-in-One</title>
+<title>Gerador de Apresentação · 99jobs Light</title>
 
-<!-- PPTXGenJS -->
 <script src="https://cdn.jsdelivr.net/npm/pptxgenjs@3.12.0/dist/pptxgen.bundle.js"></script>
 
-<!-- Fontes -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -29,109 +27,175 @@
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: 'Inter', sans-serif; background: var(--bg-app); color: var(--text-primary); min-height: 100vh; }
+body { font-family: 'Inter', sans-serif; background: var(--bg-app); color: var(--text-primary); min-height: 100vh; padding-bottom: 60px; }
 
 .topbar {
   background: var(--bg-primary); padding: 0 40px; height: 70px; display: flex; align-items: center; gap: 15px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.03); position: sticky; top: 0; z-index: 100; border-bottom: 2px solid var(--border-light);
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 100; border-bottom: 2px solid var(--border-light);
 }
-.topbar-logo { font-family: 'Urbanist', sans-serif; font-size: 26px; font-weight: 800; display: flex; align-items: center; gap: 5px; }
+.topbar-logo { font-family: 'Urbanist', sans-serif; font-size: 26px; font-weight: 800; display: flex; align-items: center; gap: 8px; }
 .logo-dots { display: flex; gap: 3px; }
 .dot { width: 8px; height: 8px; border-radius: 50%; }
-.dot.pink { background: var(--brand-pink); }
-.dot.lav { background: var(--brand-lavender); }
-.dot.blue { background: var(--brand-blue); }
+.dot.pink { background: var(--brand-pink); border: 1px solid #e0b8bb; }
+.dot.lav  { background: var(--brand-lavender); border: 1px solid #a9a8cc; }
+.dot.blue { background: var(--brand-blue); border: 1px solid #a8bcd6; }
+.topbar-sub { color: var(--text-secondary); font-size: 13px; font-weight: 500; margin-left: 4px; }
 
-.container { max-width: 960px; margin: 0 auto; padding: 40px 24px 100px; }
+.container { max-width: 960px; margin: 0 auto; padding: 40px 24px; }
 h1 { font-family: 'Urbanist', sans-serif; font-size: 32px; font-weight: 800; margin-bottom: 8px; }
-.subtitle { color: var(--text-secondary); font-size: 15px; margin-bottom: 36px; line-height: 1.5; }
+.subtitle { color: var(--text-secondary); font-size: 15px; margin-bottom: 36px; line-height: 1.6; }
 
-/* SECTIONS */
-.section { background: var(--bg-primary); border: 1px solid var(--border-light); border-radius: var(--radius); padding: 32px; margin-bottom: 24px; box-shadow: 0 4px 20px rgba(0,0,0,0.04); position: relative; overflow: hidden; }
-.section::before { content: ''; position: absolute; top: 0; left: 0; width: 6px; height: 100%; background: linear-gradient(180deg, var(--brand-pink), var(--brand-lavender)); }
+.section {
+  background: var(--bg-primary); border: 1px solid var(--border-light);
+  border-radius: var(--radius); padding: 32px; margin-bottom: 24px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.04); position: relative; overflow: hidden;
+}
+.section::before {
+  content: ''; position: absolute; top: 0; left: 0; width: 5px; height: 100%;
+  background: linear-gradient(180deg, var(--brand-pink), var(--brand-lavender));
+}
 .section:nth-child(even)::before { background: linear-gradient(180deg, var(--brand-lavender), var(--brand-blue)); }
 
 .section-header { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; }
-.section-num { width: 32px; height: 32px; border-radius: 8px; background: var(--bg-secondary); border: 1px solid var(--border-light); font-weight: 800; display: flex; align-items: center; justify-content: center; font-family: 'Urbanist'; }
+.section-num {
+  width: 32px; height: 32px; border-radius: 8px; background: var(--bg-secondary);
+  border: 1px solid var(--border-light); font-weight: 800; display: flex;
+  align-items: center; justify-content: center; font-family: 'Urbanist'; flex-shrink: 0;
+}
 .section-title { font-family: 'Urbanist', sans-serif; font-size: 20px; font-weight: 700; }
-.section-hint { font-size: 13px; color: var(--text-secondary); margin-left: auto; }
 
-/* FORM FIELDS */
 .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+@media (max-width: 600px) { .grid-2 { grid-template-columns: 1fr; } }
+
 .field { display: flex; flex-direction: column; gap: 8px; margin-bottom: 15px; }
-.field label { font-size: 13px; font-weight: 600; color: var(--text-secondary); font-family: 'Urbanist', sans-serif; }
-.field input, .field textarea, .field select { border: 1px solid var(--border-light); border-radius: 8px; padding: 12px 16px; font-size: 15px; background: var(--bg-secondary); transition: 0.2s; width: 100%; font-family: 'Inter'; }
-.field input:focus, .field select:focus, .field textarea:focus { outline: none; border-color: var(--brand-lavender); box-shadow: 0 0 0 3px rgba(189, 188, 225, 0.2); }
-.field textarea { resize: vertical; min-height: 90px; }
+.field label { font-size: 13px; font-weight: 600; color: var(--text-secondary); font-family: 'Urbanist', sans-serif; text-transform: uppercase; letter-spacing: 0.03em; }
+.field input, .field textarea, .field select {
+  border: 1px solid var(--border-light); border-radius: 8px; padding: 12px 16px;
+  font-size: 15px; background: var(--bg-secondary); transition: border-color 0.2s, box-shadow 0.2s;
+  width: 100%; font-family: 'Inter'; outline: none; color: var(--text-primary);
+}
+.field input:focus, .field textarea:focus, .field select:focus {
+  border-color: var(--brand-lavender); box-shadow: 0 0 0 3px rgba(189,188,225,0.25);
+}
+.field textarea { resize: vertical; min-height: 90px; line-height: 1.6; }
 
-/* SCOPE METRICS */
+/* Metrics */
 .metrics-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin-bottom: 15px; }
+@media (max-width: 600px) { .metrics-grid { grid-template-columns: repeat(2, 1fr); } }
 .metric-card { border: 1px solid var(--border-light); border-radius: 10px; padding: 12px 8px; background: var(--bg-secondary); text-align: center; }
-.metric-card label { display: block; font-size: 10px; font-weight: 700; color: var(--text-secondary); text-transform: uppercase; margin-bottom: 5px; }
-.metric-card input { border: none; border-bottom: 2px solid var(--border-light); background: transparent; width: 100%; text-align: center; font-weight: 700; font-family: 'Urbanist'; font-size: 16px; }
+.metric-card label { display: block; font-size: 9px; font-weight: 700; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px; }
+.metric-card input {
+  border: none; border-bottom: 2px solid var(--border-light); background: transparent;
+  width: 100%; text-align: center; font-weight: 700; font-family: 'Urbanist'; font-size: 16px;
+  outline: none; transition: border-color 0.2s;
+}
+.metric-card input:focus { border-color: var(--brand-lavender); }
 
-/* CHANNELS */
-.canais-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
-.canal-card { border: 1px solid var(--border-light); border-radius: 10px; padding: 16px; cursor: pointer; transition: 0.2s; background: var(--bg-secondary); position: relative; }
-.canal-card.active { border-color: var(--brand-lavender); background: rgba(189, 188, 225, 0.1); }
-.canal-card input { position: absolute; top: 16px; right: 16px; pointer-events: none; }
-.canal-card strong { display: block; font-family: 'Urbanist'; font-size: 15px; margin-bottom: 4px; }
+/* Canais */
+.canais-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+@media (max-width: 600px) { .canais-grid { grid-template-columns: 1fr 1fr; } }
+.canal-card {
+  border: 1.5px solid var(--border-light); border-radius: 10px; padding: 14px 14px 14px 40px;
+  cursor: pointer; transition: border-color 0.2s, background 0.2s; background: var(--bg-secondary);
+  position: relative; user-select: none;
+}
+.canal-card.active { border-color: var(--brand-lavender); background: rgba(189,188,225,0.1); }
+.canal-card input[type="checkbox"] {
+  position: absolute; left: 14px; top: 50%; transform: translateY(-50%);
+  width: 16px; height: 16px; accent-color: #8b89c8; cursor: pointer;
+}
+.canal-card strong { font-size: 13px; font-family: 'Urbanist'; display: block; margin-bottom: 2px; }
+.canal-card p { font-size: 11px; color: var(--text-secondary); line-height: 1.4; }
 
-/* DYNAMIC ROWS */
-.dynamic-row { display: grid; gap: 12px; align-items: center; margin-bottom: 12px; background: var(--bg-secondary); padding: 16px; border-radius: 8px; border: 1px solid var(--border-light); }
-.ads-row { grid-template-columns: 1fr 1fr; }
-.crono-row { grid-template-columns: 140px 140px 1fr 40px; }
+/* Ads Rows — FIX: 4 cols + remove btn */
+.dynamic-row {
+  display: flex; gap: 10px; align-items: flex-end;
+  margin-bottom: 10px; background: var(--bg-secondary); padding: 14px;
+  border-radius: 8px; border: 1px solid var(--border-light); flex-wrap: wrap;
+}
+.dynamic-row .field { margin-bottom: 0; flex: 1; min-width: 100px; }
+.dynamic-row .field label { font-size: 10px; }
+.dynamic-row .field input { padding: 9px 12px; font-size: 13px; }
 
-.add-btn { background: var(--bg-secondary); border: 1px dashed #cbd5e1; border-radius: 8px; padding: 12px; color: var(--text-secondary); cursor: pointer; width: 100%; margin-top: 10px; font-weight: 600; font-family: 'Inter'; }
-.remove-row { background: #fee2e2; border: none; color: #ef4444; padding: 8px; border-radius: 8px; cursor: pointer; font-size: 16px; }
+/* Cronograma row */
+.crono-row .field { flex: 1; min-width: 120px; }
+.crono-row .field:last-of-type { flex: 2; }
 
-/* ACTION BUTTONS */
-#generate-btn { width: 100%; padding: 22px; background: var(--text-primary); color: #fff; border: none; border-radius: var(--radius); font-family: 'Urbanist', sans-serif; font-size: 18px; font-weight: 800; cursor: pointer; margin-top: 40px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); display: flex; align-items: center; justify-content: center; gap: 12px; transition: 0.2s; }
-#generate-btn:hover { background: #0f172a; transform: translateY(-2px); }
-#progress-bar { height: 6px; background: var(--border-light); border-radius: 99px; margin-top: 20px; display: none; overflow: hidden; }
-#progress-fill { height: 100%; background: linear-gradient(90deg, var(--brand-pink), var(--brand-blue)); width: 0%; transition: 0.3s; }
+.remove-row {
+  background: #fee2e2; border: none; color: #ef4444; padding: 9px 12px;
+  border-radius: 8px; cursor: pointer; font-size: 18px; line-height: 1;
+  flex-shrink: 0; transition: background 0.2s; align-self: flex-end;
+}
+.remove-row:hover { background: #fecaca; }
 
-#toast { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%) translateY(100px); background: var(--text-primary); color: #fff; border-radius: 12px; padding: 16px 24px; font-size: 15px; font-family: 'Urbanist', sans-serif; font-weight: 600; display: flex; align-items: center; gap: 10px; transition: 0.4s; z-index: 999; box-shadow: 0 15px 40px rgba(0,0,0,0.2); }
-#toast.show { transform: translateX(-50%) translateY(0); }
+.add-btn {
+  background: var(--bg-secondary); border: 1.5px dashed #cbd5e1; border-radius: 8px;
+  padding: 12px; color: var(--text-secondary); cursor: pointer; width: 100%;
+  margin-top: 4px; font-weight: 600; font-family: 'Inter'; font-size: 13px;
+  transition: border-color 0.2s, color 0.2s;
+}
+.add-btn:hover { border-color: var(--brand-lavender); color: var(--text-primary); }
+
+/* Generate button */
+#generate-btn {
+  width: 100%; padding: 22px; background: var(--text-primary); color: #fff;
+  border: none; border-radius: var(--radius); font-family: 'Urbanist', sans-serif;
+  font-size: 18px; font-weight: 800; cursor: pointer; margin-top: 40px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15); display: flex; align-items: center;
+  justify-content: center; gap: 12px; transition: background 0.2s, transform 0.2s;
+}
+#generate-btn:hover:not(:disabled) { background: #0f172a; transform: translateY(-2px); }
+#generate-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+
+#progress-bar { height: 6px; background: var(--border-light); border-radius: 99px; margin-top: 18px; overflow: hidden; }
+#progress-fill { height: 100%; background: linear-gradient(90deg, var(--brand-pink), var(--brand-lavender), var(--brand-blue)); width: 0%; transition: width 0.4s ease; }
+#status-msg { text-align: center; font-size: 13px; color: var(--text-secondary); margin-top: 10px; min-height: 20px; }
+
+.badge-error { background: #fee2e2; color: #991b1b; border-radius: 8px; padding: 12px 16px; font-size: 13px; margin-top: 12px; display: none; }
 </style>
 </head>
 <body>
 
 <div class="topbar">
-  <div class="topbar-logo">99jobs <div class="logo-dots"><div class="dot pink"></div><div class="dot lav"></div><div class="dot blue"></div></div></div>
-  <div class="topbar-sep"></div>
-  <div class="topbar-sub">Gerador de PPT Completo · 9 Slides</div>
+  <div class="topbar-logo">
+    99jobs
+    <div class="logo-dots">
+      <div class="dot pink"></div>
+      <div class="dot lav"></div>
+      <div class="dot blue"></div>
+    </div>
+  </div>
+  <div class="topbar-sub">Gerador Estratégico · 10 Slides</div>
 </div>
 
 <div class="container">
   <h1>Gerador de Apresentação</h1>
-  <p class="subtitle">Personalize todas as secções da estratégia de divulgação. O sistema irá ajustar automaticamente os comportamentos e perfis com base no nível hierárquico e cidades selecionadas.</p>
+  <p class="subtitle">Preencha todos os campos. O PPT será gerado com o design Light Theme e lógica de público-alvo automática.</p>
 
-  <!-- SECCÃO 1: IDENTIFICACÃO -->
+  <!-- 1. IDENTIFICAÇÃO -->
   <div class="section">
-    <div class="section-header"><div class="section-num">1</div><div class="section-title">Identificação do Programa</div></div>
+    <div class="section-header"><div class="section-num">1</div><div class="section-title">Identificação</div></div>
     <div class="grid-2">
-      <div class="field"><label>Empresa Cliente</label><input type="text" id="empresa" placeholder="Ex: Siemens"></div>
-      <div class="field"><label>Nome do Programa</label><input type="text" id="programa" placeholder="Ex: Estágio 2026.2"></div>
+      <div class="field"><label>Empresa Cliente</label><input type="text" id="empresa" placeholder="Ex: Grupo Boticário"></div>
+      <div class="field"><label>Nome do Programa</label><input type="text" id="programa" placeholder="Ex: Estágio 2026"></div>
       <div class="field">
-        <label>Nível / Público-Alvo</label>
+        <label>Nível do Programa</label>
         <select id="nivel">
-          <option value="estagio">Estágio / Jovem Aprendiz (Gen Z)</option>
-          <option value="trainee">Trainee (Gen Z / Millennials)</option>
-          <option value="senior">Sênior / Especialista (Millennials / Gen X)</option>
-          <option value="executivo">Executivo / Liderança (Gen X / Boomers)</option>
-          <option value="operacional">Operacional / Técnico (Misto)</option>
+          <option value="estagio">Estágio / Jovem Aprendiz (Geração Z)</option>
+          <option value="trainee">Trainee (Geração Z / Millennials)</option>
+          <option value="senior">Sênior / Especialista (Millennials / Geração X)</option>
+          <option value="executivo">Executivo / Liderança (Geração X / Boomers)</option>
+          <option value="operacional">Operacional (Público Misto)</option>
         </select>
       </div>
-      <div class="field"><label>Mês/Ano do Documento</label><input type="text" id="data-doc" placeholder="Março, 2026"></div>
+      <div class="field"><label>Mês/Ano</label><input type="text" id="data-doc" placeholder="Março, 2026"></div>
     </div>
   </div>
 
-  <!-- SECCÃO 2: OBJETIVO E ESCOPO -->
+  <!-- 2. OBJETIVO E ESCOPO -->
   <div class="section">
     <div class="section-header"><div class="section-num">2</div><div class="section-title">Objetivo e Escopo</div></div>
-    <div class="field"><label>Texto do Objetivo</label><textarea id="objetivo">A divulgação tem o objetivo de promover o programa e as oportunidades abertas para a atração de talentos potenciais utilizando a segmentação do público-alvo específico.</textarea></div>
-    <div class="field"><label>Métricas de Escopo</label></div>
+    <div class="field"><label>Objetivo</label><textarea id="objetivo">A divulgação tem o objetivo de promover o programa e as oportunidades abertas para a atração de talentos potenciais utilizando a segmentação do público-alvo específico.</textarea></div>
     <div class="metrics-grid">
       <div class="metric-card"><label>Vagas</label><input type="text" id="vagas" value="61"></div>
       <div class="metric-card"><label>Locais</label><input type="text" id="localidades" value="SP, RS"></div>
@@ -139,269 +203,629 @@ h1 { font-family: 'Urbanist', sans-serif; font-size: 32px; font-weight: 800; mar
       <div class="metric-card"><label>Formação</label><input type="text" id="periodo" value="Jun/27"></div>
       <div class="metric-card"><label>Diversidade</label><input type="text" id="diversidade" value="50%"></div>
     </div>
-    <div class="field"><label>Modalidade de Trabalho</label><input type="text" id="modalidade" value="Híbridas e Presenciais"></div>
+    <div class="field"><label>Modalidade</label><input type="text" id="modalidade" value="Híbridas e Presenciais"></div>
   </div>
 
-  <!-- SECCÃO 3: ADS CIDADES -->
+  <!-- 3. ESTRATÉGIA ADS -->
   <div class="section">
-    <div class="section-header"><div class="section-num">3</div><div class="section-title">Estratégia Ads (Mapeamento Regional)</div></div>
+    <div class="section-header"><div class="section-num">3</div><div class="section-title">Estratégia Ads (Por Cidade)</div></div>
     <div id="ads-rows"></div>
-    <button class="add-btn" onclick="addAdsRow()"><i class="fa-solid fa-plus"></i> Adicionar Nova Cidade</button>
+    <button class="add-btn" onclick="addAdsRow()"><i class="fa-solid fa-plus"></i> Adicionar Cidade</button>
   </div>
 
-  <!-- SECCÃO 4: CANAIS -->
+  <!-- 4. CANAIS -->
   <div class="section">
     <div class="section-header"><div class="section-num">4</div><div class="section-title">Canais de Divulgação</div></div>
     <div class="canais-grid" id="canais-grid"></div>
   </div>
 
-  <!-- SECCÃO 5: PARCEIROS -->
+  <!-- 5. PARCEIROS E INSTITUIÇÕES -->
   <div class="section">
-    <div class="section-header"><div class="section-num">5</div><div class="section-title">Instituições Parceiras</div></div>
-    <div class="field">
-      <label>Quantidade de espaços para logos</label>
-      <input type="number" id="num-logos" value="6" min="1" max="24">
-      <p style="font-size: 11px; color: var(--text-secondary); margin-top: 5px;">Se selecionar mais de 12, o gerador criará automaticamente um segundo slide para manter o layout organizado.</p>
+    <div class="section-header"><div class="section-num">5</div><div class="section-title">Parceiros e Instituições</div></div>
+    <div class="grid-2">
+      <div class="field"><label>Quantidade de logos de instituições</label><input type="number" id="num-logos" value="6" min="1" max="30"></div>
+      <!-- FIX: campo m-parceiros estava faltando no HTML original -->
+      <div class="field"><label>Parceiros Estratégicos</label><input type="text" id="m-parceiros" value="+15" placeholder="Ex: +15"></div>
     </div>
   </div>
 
-  <!-- SECCÃO 6: CRONOGRAMA -->
+  <!-- 6. CRONOGRAMA -->
   <div class="section">
-    <div class="section-header"><div class="section-num">6</div><div class="section-title">Cronograma de Ações</div></div>
+    <div class="section-header"><div class="section-num">6</div><div class="section-title">Cronograma</div></div>
     <div class="grid-2" style="margin-bottom:15px">
-      <div class="field"><label>Data Início Lançamento</label><input type="date" id="data-lancamento"></div>
-      <div class="field"><label>Data Fim Encerramento</label><input type="date" id="data-encerramento"></div>
+      <div class="field"><label>Data Lançamento</label><input type="date" id="data-lancamento"></div>
+      <div class="field"><label>Data Encerramento</label><input type="date" id="data-encerramento"></div>
     </div>
     <div id="crono-rows"></div>
-    <button class="add-btn" onclick="addCronoRow()"><i class="fa-solid fa-plus"></i> Adicionar Fase do Cronograma</button>
+    <button class="add-btn" onclick="addCronoRow()"><i class="fa-solid fa-plus"></i> Adicionar Fase</button>
   </div>
 
-  <!-- SECCÃO 7: MÉTRICAS FINAIS -->
+  <!-- 7. EXPECTATIVAS -->
   <div class="section">
     <div class="section-header"><div class="section-num">7</div><div class="section-title">Expectativas de Alcance</div></div>
     <div class="grid-2">
-      <div class="field"><label>Perfis Aderentes (Base)</label><input type="text" id="m-perfis" value="19.645"></div>
+      <div class="field"><label>Perfis Aderentes</label><input type="text" id="m-perfis" value="19.645"></div>
       <div class="field"><label>Ações Exclusivas</label><input type="text" id="m-acoes" value="+30"></div>
       <div class="field"><label>Impressões Ads</label><input type="text" id="m-impressoes" value="100.505"></div>
-      <div class="field"><label>Visitas Estimadas Site</label><input type="text" id="m-visitas" value="30.149"></div>
+      <div class="field"><label>Visitas Site</label><input type="text" id="m-visitas" value="30.149"></div>
     </div>
   </div>
 
-  <div class="generate-wrap">
-    <button id="generate-btn" onclick="gerarApresentacao()"><i class="fa-solid fa-wand-magic-sparkles"></i> Gerar Apresentação Completa (.pptx)</button>
-    <div id="progress-bar"><div id="progress-fill"></div></div>
-  </div>
+  <button id="generate-btn" onclick="gerarApresentacao()">
+    <i class="fa-solid fa-wand-magic-sparkles"></i> Gerar Apresentação Completa (.pptx)
+  </button>
+  <div id="progress-bar"><div id="progress-fill"></div></div>
+  <div id="status-msg"></div>
+  <div class="badge-error" id="badge-error"></div>
 </div>
 
-<div id="toast"></div>
-
 <script>
-const C = { PINK: 'F2D4D6', LAVENDER: 'BDBCE1', BLUE: 'C4D4EB', TEXT_PRI: '1E293B', TEXT_SEC: '475569', BG_PRI: 'FFFFFF', BG_SEC: 'F8FAFC', BORDER: 'E2E8F0', RED_HEART: 'E25555' };
+// ─── CORES ──────────────────────────────────────────────
+const C = {
+  PINK:     'F2D4D6',
+  LAVENDER: 'BDBCE1',
+  BLUE:     'C4D4EB',
+  TEXT_PRI: '1E293B',
+  TEXT_SEC: '475569',
+  BG_PRI:   'FFFFFF',
+  BG_SEC:   'F8FAFC',
+  BORDER:   'E2E8F0'
+};
 
-// CANAIS DATA
+// ─── CANAIS ─────────────────────────────────────────────
 const CANAIS_DATA = [
-  { id:'email', name:'E-mail Marketing', desc:'Disparos segmentados base 99all' },
-  { id:'redes', name:'Canais Sociais', desc:'Instagram, LinkedIn e Facebook' },
-  { id:'news', name:'Newsletter', desc:'Destaque semanal na rede 99jobs' },
-  { id:'ads', name:'Campanha Ads', desc:'Meta Ads (FB/IG) e Indeed' },
-  { id:'parceiros', name:'Parceiros Estratégicos', desc:'Comunidades e grupos parceiros' },
-  { id:'ies', name:'Instituições (IES)', desc:'Conexão direta com universidades' }
+  { id: 'email',    name: 'E-mail Marketing', desc: 'Disparos segmentados base 99all' },
+  { id: 'redes',    name: 'Canais Sociais',   desc: 'Instagram, LinkedIn e Facebook' },
+  { id: 'news',     name: 'Newsletter',       desc: 'Destaque semanal na rede 99jobs' },
+  { id: 'ads',      name: 'Campanha Ads',     desc: 'Meta Ads e Indeed' },
+  { id: 'parceiros',name: 'Parceiros',        desc: 'Rede de comunidades parceiras' },
+  { id: 'ies',      name: 'Instituições',     desc: 'Conexão direta com universidades' }
 ];
 
-// RENDER CHANNELS
 const gridCanais = document.getElementById('canais-grid');
 CANAIS_DATA.forEach(c => {
   const div = document.createElement('div');
   div.className = 'canal-card active';
-  div.innerHTML = `<input type="checkbox" id="canal-${c.id}" checked><strong>${c.name}</strong><p style="font-size:11px; color:var(--text-secondary)">${c.desc}</p>`;
-  div.onclick = (e) => { 
-    if(e.target.tagName!=='INPUT') { const i = div.querySelector('input'); i.checked = !i.checked; } 
-    div.classList.toggle('active', div.querySelector('input').checked); 
-  };
+  div.innerHTML = `<input type="checkbox" id="canal-${c.id}" checked><strong>${c.name}</strong><p>${c.desc}</p>`;
+  div.addEventListener('click', (e) => {
+    if (e.target.tagName === 'INPUT') return;
+    const chk = div.querySelector('input');
+    chk.checked = !chk.checked;
+    div.classList.toggle('active', chk.checked);
+  });
   gridCanais.appendChild(div);
 });
 
-// DYNAMIC ROWS HELPERS
-function addAdsRow(c='', r='', p='', po='') {
+// ─── ADS ROWS ───────────────────────────────────────────
+// FIX: layout com flex (não grid) + campos em ordem lógica
+function addAdsRow(c = '', r = '', p = '', po = '') {
   const div = document.createElement('div');
-  div.className = 'dynamic-row ads-row';
+  div.className = 'dynamic-row';
   div.innerHTML = `
-    <div class="field"><label>Cidade</label><input type="text" placeholder="Ex: Jundiaí (SP)" value="${c}"></div>
-    <div class="field"><label>Raio de Alcance</label><input type="text" placeholder="Ex: 40km" value="${r}"></div>
-    <div class="field"><label>Perfil Especialista</label><input type="text" placeholder="Ex: Tech/Logística" value="${p}"></div>
-    <div class="field"><label>Principais Polos</label><input type="text" placeholder="Ex: Fatec, USP" value="${po}"></div>
-    <button class="remove-row" style="grid-column: span 2" onclick="this.parentElement.remove()">Remover Cidade</button>
+    <div class="field"><label>Cidade</label><input type="text" placeholder="São Paulo (SP)" value="${c}"></div>
+    <div class="field"><label>Raio</label><input type="text" placeholder="40 km" value="${r}"></div>
+    <div class="field"><label>Perfil / Demanda</label><input type="text" placeholder="Demanda Tech e Logística" value="${p}"></div>
+    <div class="field"><label>Polos / IES</label><input type="text" placeholder="USP, Fatec..." value="${po}"></div>
+    <button class="remove-row" onclick="this.parentElement.remove()" title="Remover">×</button>
   `;
   document.getElementById('ads-rows').appendChild(div);
 }
 
-function addCronoRow(i='', f='', d='') {
+// ─── CRONO ROWS ─────────────────────────────────────────
+function addCronoRow(i = '', f = '', d = '') {
   const div = document.createElement('div');
   div.className = 'dynamic-row crono-row';
   div.innerHTML = `
     <div class="field"><label>Início</label><input type="date" value="${i}"></div>
     <div class="field"><label>Fim</label><input type="date" value="${f}"></div>
-    <div class="field"><label>Atividade</label><input type="text" placeholder="Fase" value="${d}"></div>
-    <button class="remove-row" onclick="this.parentElement.remove()">×</button>
+    <div class="field"><label>Fase / Descrição</label><input type="text" placeholder="Ex: Fase Ataque – Lançamento" value="${d}"></div>
+    <button class="remove-row" onclick="this.parentElement.remove()" title="Remover">×</button>
   `;
   document.getElementById('crono-rows').appendChild(div);
 }
 
-// DEFAULT ROWS
-addAdsRow('Jundiaí (SP)', '40 km', 'Demanda Tech e Logística Industrial.', 'Fatec, Unianchieta.');
-addAdsRow('Caxias do Sul (RS)', '40 km', 'Foco em Engenharia e Gestão.', 'UCS, FSG.');
-addCronoRow('', '', 'Fase de Ataque: Lançamento e Ads');
-addCronoRow('', '', 'Fase de Manutenção: Reengajamento');
-addCronoRow('', '', 'Fase Final: Urgência e Stories');
+// Defaults
+addAdsRow('São Paulo (SP)', '40 km', 'Demanda Tech e Logística', 'USP, Fatec, Unianchieta');
+addAdsRow('Salvador (BA)',  '30 km', 'Foco em Engenharia e Gestão', 'UFBA, UNIFACS');
+addCronoRow('', '', 'Fase Ataque: Lançamento e Ads');
+addCronoRow('', '', 'Fase Manutenção: Reengajamento');
+addCronoRow('', '', 'Fase Finalização: Encerramento e WhatsApp');
 
-// ─── PPT BUILDERS ──────────────────────────────────────────
+// ─── PROGRESSO ──────────────────────────────────────────
+function setProgress(pct, msg = '') {
+  document.getElementById('progress-fill').style.width = pct + '%';
+  document.getElementById('status-msg').textContent = msg;
+}
 
-function buildSlideCover(pres, empresa) {
+// ─── HELPERS ────────────────────────────────────────────
+const fmtDate = d => d ? d.split('-').reverse().join('/') : '—';
+const v = id => (document.getElementById(id) || {}).value || '';
+
+// ─── SLIDE 1: CAPA ──────────────────────────────────────
+function buildSlideCover(pres, empresa, programa, dataDoc) {
   const s = pres.addSlide();
   s.background = { color: C.BG_PRI };
-  s.addText([{ text: '99', options: { color: C.PINK } },{ text: 'jobs', options: { color: C.LAVENDER } },{ text: '.com', options: { color: C.BLUE } }], 
-    { x: 1.0, y: 2.2, w: 3.5, h: 1.2, fontFace: 'Urbanist', fontSize: 60, bold: true, align: 'right', valign: 'middle' });
-  s.addText('❤️', { x: 4.6, y: 2.3, w: 0.8, h: 1.0, fontFace: 'Segoe UI Emoji', fontSize: 32, color: C.RED_HEART, align: 'center', valign: 'middle' });
-  s.addShape(pres.shapes.RECTANGLE, { x: 5.5, y: 2.2, w: 3.5, h: 1.2, fill: { color: C.BG_SEC }, line: { color: C.BORDER, dashType: 'dash', width: 2 } });
-  s.addText('Logo do Cliente\n' + (empresa || ''), { x: 5.5, y: 2.2, w: 3.5, h: 1.2, fontFace: 'Inter', fontSize: 14, color: C.TEXT_SEC, align: 'center', valign: 'middle' });
+
+  // Faixa de cor no topo
+  s.addShape(pres.ShapeType.rect, { x: 0, y: 0, w: '100%', h: 0.18, fill: { color: C.LAVENDER }, line: { color: C.LAVENDER } });
+
+  // 99jobs (esquerda)
+  s.addShape(pres.ShapeType.rect, {
+    x: 0.8, y: 1.9, w: 3.4, h: 1.4,
+    fill: { color: C.BG_SEC }, line: { color: C.BORDER, dashType: 'dash', width: 1.5 }
+  });
+  s.addText('99jobs.com', {
+    x: 0.8, y: 1.9, w: 3.4, h: 1.4,
+    fontFace: 'Urbanist', fontSize: 36, bold: true,
+    color: C.TEXT_PRI, align: 'center', valign: 'middle'
+  });
+
+  // Coração
+  s.addText('❤', { x: 4.35, y: 2.1, w: 0.8, h: 1.0, fontFace: 'Segoe UI Emoji', fontSize: 28, align: 'center', valign: 'middle', color: 'E25555' });
+
+  // Logo cliente (direita)
+  s.addShape(pres.ShapeType.rect, {
+    x: 5.2, y: 1.9, w: 3.8, h: 1.4,
+    fill: { color: C.BG_SEC }, line: { color: C.BORDER, dashType: 'dash', width: 1.5 }
+  });
+  s.addText(`Logo: ${empresa || 'Cliente'}`, {
+    x: 5.2, y: 1.9, w: 3.8, h: 1.4,
+    fontFace: 'Inter', fontSize: 13, color: C.TEXT_SEC, align: 'center', valign: 'middle'
+  });
+
+  // Programa + data
+  s.addText(programa || 'Nome do Programa', {
+    x: 0.8, y: 3.7, w: 8.5, h: 0.6,
+    fontFace: 'Urbanist', fontSize: 28, bold: true, color: C.TEXT_PRI, align: 'center'
+  });
+  if (dataDoc) {
+    s.addText(dataDoc, {
+      x: 0.8, y: 4.35, w: 8.5, h: 0.35,
+      fontFace: 'Inter', fontSize: 13, color: C.TEXT_SEC, align: 'center'
+    });
+  }
+
+  // Faixa rodapé
+  s.addShape(pres.ShapeType.rect, { x: 0, y: 5.35, w: '100%', h: 0.15, fill: { color: C.PINK }, line: { color: C.PINK } });
 }
 
-function buildSlideObjective(pres, obj, data) {
-  const s = pres.addSlide(); s.background = { color: C.BG_PRI };
-  s.addText('Objetivo Estratégico', { x: 0.45, y: 0.4, w: 8.0, h: 0.6, fontFace: 'Urbanist', fontSize: 32, bold: true, color: C.TEXT_PRI });
-  s.addShape(pres.shapes.RECTANGLE, { x: 0.5, y: 1.05, w: 0.8, h: 0.05, fill: { color: C.PINK } });
-  if(data) s.addText(data, { x: 0.5, y: 1.3, w: 5.0, h: 0.3, fontFace: 'Inter', fontSize: 12, color: C.TEXT_SEC, bold: true });
-  s.addText(obj, { x: 0.5, y: 1.8, w: 9.0, h: 3.2, fontFace: 'Inter', fontSize: 18, color: C.TEXT_SEC, wrap: true, lineSpacingMultiple: 1.4 });
+// ─── SLIDE 2: OBJETIVO ──────────────────────────────────
+function buildSlideObjective(pres, obj, dataDoc) {
+  const s = pres.addSlide();
+  s.background = { color: C.BG_PRI };
+
+  s.addShape(pres.ShapeType.rect, { x: 0, y: 0, w: 0.08, h: '100%', fill: { color: C.PINK }, line: { color: C.PINK } });
+
+  s.addText('Objetivo Estratégico', {
+    x: 0.5, y: 0.4, w: 9.0, h: 0.65,
+    fontFace: 'Urbanist', fontSize: 30, bold: true, color: C.TEXT_PRI
+  });
+
+  if (dataDoc) {
+    s.addText(dataDoc, {
+      x: 0.5, y: 1.15, w: 9.0, h: 0.3,
+      fontFace: 'Inter', fontSize: 12, color: C.TEXT_SEC, bold: true
+    });
+  }
+
+  s.addShape(pres.ShapeType.rect, { x: 0.5, y: 1.6, w: 9.0, h: 0.04, fill: { color: C.BORDER }, line: { color: C.BORDER } });
+
+  s.addText(obj || 'Objetivo não informado.', {
+    x: 0.5, y: 1.85, w: 9.0, h: 3.2,
+    fontFace: 'Inter', fontSize: 17, color: C.TEXT_SEC,
+    wrap: true, valign: 'top', lineSpacingMultiple: 1.5
+  });
 }
 
-function buildSlideScope(pres, v, l, a, p, d, m) {
-  const s = pres.addSlide(); s.background = { color: C.BG_PRI };
-  s.addText('Escopo do Programa', { x: 0.45, y: 0.4, w: 8.0, h: 0.6, fontFace: 'Urbanist', fontSize: 32, bold: true, color: C.TEXT_PRI });
-  const items = [{l:'Vagas', v:v},{l:'Locais', v:l},{l:'Áreas', v:a},{l:'Formação', v:p},{l:'Diversidade', v:d},{l:'Modalidade', v:m}];
+// ─── SLIDE 3: ESCOPO ────────────────────────────────────
+function buildSlideScope(pres, vagas, loc, areas, periodo, div, modal) {
+  const s = pres.addSlide();
+  s.background = { color: C.BG_PRI };
+
+  s.addShape(pres.ShapeType.rect, { x: 0, y: 0, w: 0.08, h: '100%', fill: { color: C.LAVENDER }, line: { color: C.LAVENDER } });
+
+  s.addText('Escopo do Programa', {
+    x: 0.5, y: 0.4, w: 9.0, h: 0.65,
+    fontFace: 'Urbanist', fontSize: 30, bold: true, color: C.TEXT_PRI
+  });
+
+  const items = [
+    { l: 'Vagas', v: vagas }, { l: 'Localidades', v: loc },
+    { l: 'Áreas', v: areas }, { l: 'Formação até', v: periodo },
+    { l: 'Diversidade', v: div }, { l: 'Modalidade', v: modal }
+  ];
+
   items.forEach((it, i) => {
-    let row = Math.floor(i/3), col = i%3;
-    let x = 0.5 + (col * 3.1), y = 1.6 + (row * 1.6);
-    s.addShape(pres.shapes.ROUNDED_RECTANGLE, { x, y, w: 2.9, h: 1.3, fill: { color: C.BG_SEC }, line: { color: C.BORDER }, rectRadius: 0.1 });
-    s.addText(it.v || '-', { x: x+0.1, y: y+0.2, w: 2.7, h: 0.5, fontFace: 'Urbanist', fontSize: 20, bold: true, align: 'center' });
-    s.addText(it.l, { x: x+0.1, y: y+0.8, w: 2.7, h: 0.3, fontFace: 'Inter', fontSize: 12, color: C.TEXT_SEC, align: 'center', bold: true });
+    const col = i % 3, row = Math.floor(i / 3);
+    const x = 0.5 + col * 3.1, y = 1.5 + row * 1.7;
+    s.addShape(pres.ShapeType.roundRect, {
+      x, y, w: 2.9, h: 1.4,
+      fill: { color: C.BG_SEC }, line: { color: C.BORDER }, rectRadius: 0.08
+    });
+    // Linha de cor superior
+    s.addShape(pres.ShapeType.rect, {
+      x, y, w: 2.9, h: 0.08,
+      fill: { color: i % 2 === 0 ? C.PINK : C.LAVENDER }, line: { color: i % 2 === 0 ? C.PINK : C.LAVENDER }
+    });
+    s.addText(it.v || '—', {
+      x: x + 0.1, y: y + 0.25, w: 2.7, h: 0.55,
+      fontFace: 'Urbanist', fontSize: 22, bold: true, align: 'center', color: C.TEXT_PRI
+    });
+    s.addText(it.l, {
+      x: x + 0.1, y: y + 0.88, w: 2.7, h: 0.3,
+      fontFace: 'Inter', fontSize: 11, color: C.TEXT_SEC, align: 'center', bold: true
+    });
   });
 }
 
-function buildSlideGenZ(pres, nivel) {
-  const s = pres.addSlide(); s.background = { color: C.BG_PRI };
-  const config = {
-    'estagio': { title: 'Mapeamento Gen Z (Estágio)', behavior: 'TikTok, Reels, EdTechs (Coursera, Udemy), Podcasts Carreira, Gamificação.', interests: 'Propósito, Saúde Mental, No Dress Code, Flexibilidade.' },
-    'trainee': { title: 'Mapeamento Gen Z / Millennials', behavior: 'LinkedIn Ativo, Newsletters Negócios, Podcasts Produtividade, Híbrido.', interests: 'Plano de Carreira, Impacto Social, Salário Emocional.' },
-    'senior': { title: 'Mapeamento Millennials / Gen X', behavior: 'LinkedIn Networking, Artigos Técnicos, Podcasts Especializados, Mentoria.', interests: 'Estabilidade, Liderança, Projetos Complexos, Autonomia.' },
-    'executivo': { title: 'Mapeamento Liderança (Gen X / Boomers)', behavior: 'C-Level Networking, Portais de Economia, Consumo de Dados, Gestão.', interests: 'Cultura Organizacional, Visão Macro, Governança, Legado.' },
-    'operacional': { title: 'Mapeamento Técnico / Operacional', behavior: 'Facebook Groups, WhatsApp, Youtube Tutoriais, Redes Locais.', interests: 'Segurança, Benefícios Claros, Localidade, Treinamento.' }
+// ─── SLIDE 4: PÚBLICO-ALVO ──────────────────────────────
+function buildSlideAudience(pres, nivel) {
+  const s = pres.addSlide();
+  s.background = { color: C.BG_PRI };
+
+  s.addShape(pres.ShapeType.rect, { x: 0, y: 0, w: 0.08, h: '100%', fill: { color: C.BLUE }, line: { color: C.BLUE } });
+
+  const cfg = {
+    estagio:    { title: 'Mapeamento Gen Z', behavior: 'TikTok, Reels, EdTechs (Coursera) e Podcasts de Carreira.', interests: 'Propósito, Saúde Mental, Dress Code Livre e Flexibilidade.' },
+    trainee:    { title: 'Mapeamento Gen Z / Millennials', behavior: 'LinkedIn Ativo, Podcasts de Produtividade e Trabalho Híbrido.', interests: 'Plano de Carreira, Impacto Social e Salário Emocional.' },
+    senior:     { title: 'Mapeamento Millennials / Geração X', behavior: 'Artigos Técnicos, LinkedIn Networking e Mentoria.', interests: 'Estabilidade, Liderança, Projetos Complexos e Autonomia.' },
+    executivo:  { title: 'Mapeamento Liderança Sênior', behavior: 'C-Level Networking, Portais de Economia e Gestão.', interests: 'Cultura Organizacional, Governança, Impacto e Legado.' },
+    operacional:{ title: 'Mapeamento Público Operacional', behavior: 'Facebook Groups, WhatsApp e Youtube Tutoriais.', interests: 'Segurança, Benefícios Claros e Plano de Treinamento.' }
   };
-  const active = config[nivel] || config['estagio'];
-  s.addText(active.title, { x: 0.45, y: 0.4, w: 8.0, h: 0.6, fontFace: 'Urbanist', fontSize: 32, bold: true, color: C.TEXT_PRI });
-  s.addShape(pres.shapes.RECTANGLE, { x: 0.5, y: 1.05, w: 0.8, h: 0.05, fill: { color: C.PINK } });
-  const cards = [{t:'Comportamento Digital', d:active.behavior, c:C.PINK},{t:'Gatilhos e Interesses', d:active.interests, c:C.LAVENDER},{t:'Estilo de Vida', d:'Mobile-first, Fintechs, Sustentabilidade e Consumo Ágil.', c:C.BLUE}];
+  const a = cfg[nivel] || cfg['estagio'];
+
+  s.addText(a.title, {
+    x: 0.5, y: 0.4, w: 9.0, h: 0.65,
+    fontFace: 'Urbanist', fontSize: 30, bold: true, color: C.TEXT_PRI
+  });
+
+  const cards = [
+    { t: 'Comportamento Digital', d: a.behavior, c: C.PINK },
+    { t: 'Interesses & Valores',  d: a.interests, c: C.LAVENDER },
+    { t: 'Estilo de Vida',         d: 'Mobile-first, Fintechs, Sustentabilidade e Consumo Consciente.', c: C.BLUE }
+  ];
+
   cards.forEach((b, i) => {
-    let x = 0.5 + (i * 3.1);
-    s.addShape(pres.shapes.ROUNDED_RECTANGLE, { x, y: 1.8, w: 2.9, h: 3.2, fill: { color: C.BG_SEC }, line: { color: C.BORDER }, rectRadius: 0.1 });
-    s.addShape(pres.shapes.RECTANGLE, { x, y: 1.8, w: 2.9, h: 0.1, fill: { color: b.c } });
-    s.addText(b.t, { x: x+0.1, y: 2.1, w: 2.7, h: 0.4, fontFace: 'Urbanist', fontSize: 18, bold: true });
-    s.addText(b.d, { x: x+0.1, y: 2.6, w: 2.7, h: 2.2, fontFace: 'Inter', fontSize: 12, color: C.TEXT_SEC, wrap: true, valign: 'top', lineSpacingMultiple: 1.2 });
+    const x = 0.5 + i * 3.1;
+    s.addShape(pres.ShapeType.roundRect, {
+      x, y: 1.6, w: 2.9, h: 3.5,
+      fill: { color: C.BG_SEC }, line: { color: C.BORDER }, rectRadius: 0.08
+    });
+    s.addShape(pres.ShapeType.rect, {
+      x, y: 1.6, w: 2.9, h: 0.1,
+      fill: { color: b.c }, line: { color: b.c }
+    });
+    s.addText(b.t, {
+      x: x + 0.15, y: 1.85, w: 2.6, h: 0.45,
+      fontFace: 'Urbanist', fontSize: 16, bold: true, color: C.TEXT_PRI
+    });
+    s.addText(b.d, {
+      x: x + 0.15, y: 2.45, w: 2.6, h: 2.5,
+      fontFace: 'Inter', fontSize: 12, color: C.TEXT_SEC, wrap: true, valign: 'top', lineSpacingMultiple: 1.4
+    });
   });
 }
 
-function buildSlideAds(pres, adsRows, nivel) {
-  const s = pres.addSlide(); s.background = { color: C.BG_PRI };
-  s.addText('Estratégia de Campanhas Ads', { x: 0.45, y: 0.4, w: 8.0, h: 0.6, fontFace: 'Urbanist', fontSize: 32, bold: true });
-  s.addText('Público Segmentado: ' + nivel.toUpperCase(), { x: 0.5, y: 1.1, w: 8.0, h: 0.3, fontFace: 'Inter', fontSize: 13, color: C.TEXT_SEC, bold: true });
-  adsRows.slice(0, 3).forEach((r, i) => {
-    let x = 0.5 + (i * 3.1);
-    s.addShape(pres.shapes.ROUNDED_RECTANGLE, { x, y: 1.8, w: 2.9, h: 3.2, fill: { color: C.BG_SEC }, line: { color: C.BORDER }, rectRadius: 0.1 });
-    s.addText(r.cid, { x: x+0.1, y: 2.0, w: 2.7, h: 0.4, fontFace: 'Urbanist', fontSize: 18, bold: true });
-    s.addText(`Raio: ${r.raio}\n\nPerfil: ${r.perf}\n\nPolos: ${r.pol}`, { x: x+0.1, y: 2.5, w: 2.7, h: 2.2, fontFace: 'Inter', fontSize: 11, color: C.TEXT_SEC, wrap: true, valign: 'top' });
+// ─── SLIDE 5: ADS ───────────────────────────────────────
+function buildSlideAds(pres, adsRows, nivelLabel) {
+  const s = pres.addSlide();
+  s.background = { color: C.BG_PRI };
+
+  s.addShape(pres.ShapeType.rect, { x: 0, y: 0, w: 0.08, h: '100%', fill: { color: C.PINK }, line: { color: C.PINK } });
+
+  s.addText('Estratégia de Campanhas Ads', {
+    x: 0.5, y: 0.4, w: 9.0, h: 0.65,
+    fontFace: 'Urbanist', fontSize: 30, bold: true, color: C.TEXT_PRI
+  });
+  s.addText(`Segmentação: ${nivelLabel}`, {
+    x: 0.5, y: 1.1, w: 9.0, h: 0.3,
+    fontFace: 'Inter', fontSize: 12, color: C.TEXT_SEC, bold: true
+  });
+
+  // FIX: até 3 cards, mas tolera menos linhas
+  const rows = (adsRows.length > 0 ? adsRows : [{ cid: '—', raio: '—', perf: '—', pol: '—' }]).slice(0, 3);
+  const colW = 9.0 / rows.length;
+
+  rows.forEach((r, i) => {
+    const x = 0.5 + i * colW;
+    s.addShape(pres.ShapeType.roundRect, {
+      x: x + 0.05, y: 1.65, w: colW - 0.15, h: 3.5,
+      fill: { color: C.BG_SEC }, line: { color: C.BORDER }, rectRadius: 0.08
+    });
+    s.addShape(pres.ShapeType.rect, {
+      x: x + 0.05, y: 1.65, w: colW - 0.15, h: 0.08,
+      fill: { color: C.LAVENDER }, line: { color: C.LAVENDER }
+    });
+    s.addText(r.cid || '—', {
+      x: x + 0.2, y: 1.9, w: colW - 0.4, h: 0.45,
+      fontFace: 'Urbanist', fontSize: 15, bold: true, color: C.TEXT_PRI, wrap: true
+    });
+    s.addText(`Raio: ${r.raio || '—'}\n\nPerfil: ${r.perf || '—'}\n\nPolos: ${r.pol || '—'}`, {
+      x: x + 0.2, y: 2.45, w: colW - 0.4, h: 2.5,
+      fontFace: 'Inter', fontSize: 11, color: C.TEXT_SEC, wrap: true, valign: 'top', lineSpacingMultiple: 1.5
+    });
   });
 }
 
+// ─── SLIDE 6: CANAIS ────────────────────────────────────
+function buildSlideChannels(pres, canaisSel) {
+  const s = pres.addSlide();
+  s.background = { color: C.BG_PRI };
+
+  s.addShape(pres.ShapeType.rect, { x: 0, y: 0, w: 0.08, h: '100%', fill: { color: C.LAVENDER }, line: { color: C.LAVENDER } });
+
+  s.addText('Canais de Divulgação', {
+    x: 0.5, y: 0.4, w: 9.0, h: 0.65,
+    fontFace: 'Urbanist', fontSize: 30, bold: true, color: C.TEXT_PRI
+  });
+
+  if (canaisSel.length === 0) {
+    s.addText('Nenhum canal selecionado.', {
+      x: 0.5, y: 2.5, w: 9.0, h: 0.5,
+      fontFace: 'Inter', fontSize: 14, color: C.TEXT_SEC, align: 'center'
+    });
+    return;
+  }
+
+  const cols = 2, boxW = 4.3, boxH = 1.05, gapX = 0.4, gapY = 0.25;
+  const startX = 0.5;
+
+  canaisSel.forEach((c, i) => {
+    const col = i % cols, row = Math.floor(i / cols);
+    const x = startX + col * (boxW + gapX), y = 1.55 + row * (boxH + gapY);
+    s.addShape(pres.ShapeType.roundRect, {
+      x, y, w: boxW, h: boxH,
+      fill: { color: C.BG_SEC }, line: { color: C.BORDER }, rectRadius: 0.08
+    });
+    s.addShape(pres.ShapeType.rect, {
+      x, y, w: 0.06, h: boxH,
+      fill: { color: i % 2 === 0 ? C.PINK : C.LAVENDER },
+      line: { color: i % 2 === 0 ? C.PINK : C.LAVENDER }
+    });
+    s.addText(c.name, {
+      x: x + 0.2, y: y + 0.12, w: boxW - 0.3, h: 0.35,
+      fontFace: 'Urbanist', fontSize: 15, bold: true, color: C.TEXT_PRI
+    });
+    s.addText(c.desc, {
+      x: x + 0.2, y: y + 0.5, w: boxW - 0.3, h: 0.4,
+      fontFace: 'Inter', fontSize: 11, color: C.TEXT_SEC
+    });
+  });
+}
+
+// ─── SLIDE 7: LOGOS INSTITUIÇÕES ────────────────────────
 function buildSlideLogos(pres, numLogos) {
-  const limit = 12;
-  const numSlides = Math.ceil(numLogos / limit);
-  for (let sIdx = 0; sIdx < numSlides; sIdx++) {
-    const s = pres.addSlide(); s.background = { color: C.BG_PRI };
-    s.addText('Instituições Parceiras ' + (numSlides > 1 ? `(${sIdx+1})` : ''), { x: 0.45, y: 0.4, w: 8.0, h: 0.6, fontFace: 'Urbanist', fontSize: 30, bold: true });
-    const count = Math.min(limit, numLogos - (sIdx * limit));
-    const cols = 4, boxW = 1.8, boxH = 0.9, gapX = 0.4, gapY = 0.5;
-    const startX = (10.0 - (Math.min(count, cols) * (boxW + gapX) - gapX)) / 2;
+  const PER_SLIDE = 12;
+  const totalSlides = Math.ceil(numLogos / PER_SLIDE);
+
+  for (let sIdx = 0; sIdx < totalSlides; sIdx++) {
+    const s = pres.addSlide();
+    s.background = { color: C.BG_PRI };
+    s.addShape(pres.ShapeType.rect, { x: 0, y: 0, w: 0.08, h: '100%', fill: { color: C.BLUE }, line: { color: C.BLUE } });
+    s.addText(`Instituições Parceiras${totalSlides > 1 ? ' (' + (sIdx + 1) + ')' : ''}`, {
+      x: 0.5, y: 0.4, w: 9.0, h: 0.65,
+      fontFace: 'Urbanist', fontSize: 28, bold: true, color: C.TEXT_PRI
+    });
+
+    const count = Math.min(PER_SLIDE, numLogos - sIdx * PER_SLIDE);
+    const cols = 4;
+    const boxW = 1.9, boxH = 0.95, gapX = 0.35, gapY = 0.4;
+    const totalW = cols * boxW + (cols - 1) * gapX;
+    const startX = (10.0 - totalW) / 2;
+
     for (let i = 0; i < count; i++) {
-      let row = Math.floor(i / cols), col = i % cols;
-      let x = startX + (col * (boxW + gapX)), y = 1.8 + (row * (boxH + gapY));
-      s.addShape(pres.shapes.RECTANGLE, { x, y, w: boxW, h: boxH, fill: { color: C.BG_SEC }, line: { color: C.BORDER, dashType: 'dash', width: 1.5 } });
-      s.addText('Inserir Logo', { x, y, w: boxW, h: boxH, fontFace: 'Inter', fontSize: 10, color: C.TEXT_SEC, align: 'center', valign: 'middle' });
+      const col = i % cols, row = Math.floor(i / cols);
+      const x = startX + col * (boxW + gapX), y = 1.65 + row * (boxH + gapY);
+      s.addShape(pres.ShapeType.rect, {
+        x, y, w: boxW, h: boxH,
+        fill: { color: C.BG_SEC }, line: { color: C.BORDER, dashType: 'dash', width: 1 }
+      });
+      s.addText('Inserir Logo', {
+        x, y, w: boxW, h: boxH,
+        fontFace: 'Inter', fontSize: 10, color: C.TEXT_SEC, align: 'center', valign: 'middle'
+      });
     }
   }
 }
 
+// ─── SLIDE 8: CRONOGRAMA ────────────────────────────────
 function buildSlideTimeline(pres, rows, lanc, enc) {
-  const s = pres.addSlide(); s.background = { color: C.BG_PRI };
-  s.addText('Cronograma de Ações', { x: 0.45, y: 0.4, w: 8.0, h: 0.6, fontFace: 'Urbanist', fontSize: 32, bold: true });
-  const fmt = d => d ? d.split('-').reverse().join('/') : '';
-  s.addText(`Lançamento: ${fmt(lanc)}  |  Encerramento: ${fmt(enc)}`, { x: 0.5, y: 1.1, w: 8.0, h: 0.3, fontFace: 'Inter', fontSize: 14, color: C.TEXT_PRI, bold: true });
-  s.addShape(pres.shapes.RECTANGLE, { x: 0.5, y: 2.2, w: 9.0, h: 0.04, fill: { color: C.BORDER } });
+  const s = pres.addSlide();
+  s.background = { color: C.BG_PRI };
+  s.addShape(pres.ShapeType.rect, { x: 0, y: 0, w: 0.08, h: '100%', fill: { color: C.PINK }, line: { color: C.PINK } });
+
+  s.addText('Cronograma de Ações', {
+    x: 0.5, y: 0.4, w: 9.0, h: 0.65,
+    fontFace: 'Urbanist', fontSize: 30, bold: true, color: C.TEXT_PRI
+  });
+  s.addText(`Lançamento: ${fmtDate(lanc)}   |   Encerramento: ${fmtDate(enc)}`, {
+    x: 0.5, y: 1.1, w: 9.0, h: 0.35,
+    fontFace: 'Inter', fontSize: 13, color: C.TEXT_PRI, bold: true
+  });
+
+  // FIX: guard contra rows vazio
+  if (!rows || rows.length === 0) {
+    s.addText('Nenhuma fase definida.', {
+      x: 0.5, y: 2.5, w: 9.0, h: 0.5,
+      fontFace: 'Inter', fontSize: 14, color: C.TEXT_SEC, align: 'center'
+    });
+    return;
+  }
+
+  // Linha da timeline
+  s.addShape(pres.ShapeType.rect, { x: 0.5, y: 2.4, w: 9.0, h: 0.05, fill: { color: C.BORDER }, line: { color: C.BORDER } });
+
   const spacing = 9.0 / (rows.length + 1);
+
   rows.forEach((r, i) => {
-    let x = (i + 1) * spacing;
-    s.addShape(pres.shapes.OVAL, { x: x - 0.15, y: 2.07, w: 0.3, h: 0.3, fill: { color: C.LAVENDER }, line: { color: C.BG_PRI, width: 3 } });
-    let boxW = 2.2, boxX = x - (boxW / 2);
-    if (boxX < 0.3) boxX = 0.3; if (boxX + boxW > 9.7) boxX = 9.7 - boxW;
-    s.addShape(pres.shapes.ROUNDED_RECTANGLE, { x: boxX, y: 2.6, w: boxW, h: 2.0, fill: { color: C.BG_SEC }, line: { color: C.BORDER }, rectRadius: 0.1 });
-    s.addText(`${fmt(r.inicio)} a ${fmt(r.fim)}\n\n${r.desc}`, { x: boxX + 0.1, y: 2.7, w: boxW - 0.2, h: 1.8, fontFace: 'Urbanist', fontSize: 11, align: 'center', valign: 'top', wrap: true });
+    const cx = 0.5 + (i + 1) * spacing;
+    // Ponto
+    s.addShape(pres.ShapeType.ellipse, {
+      x: cx - 0.15, y: 2.25, w: 0.3, h: 0.3,
+      fill: { color: C.LAVENDER }, line: { color: C.BG_PRI, width: 3 }
+    });
+
+    const boxW = Math.min(2.4, spacing - 0.1);
+    let boxX = cx - boxW / 2;
+    if (boxX < 0.4) boxX = 0.4;
+    if (boxX + boxW > 9.6) boxX = 9.6 - boxW;
+
+    s.addShape(pres.ShapeType.roundRect, {
+      x: boxX, y: 2.7, w: boxW, h: 2.4,
+      fill: { color: C.BG_SEC }, line: { color: C.BORDER }, rectRadius: 0.08
+    });
+    s.addShape(pres.ShapeType.rect, {
+      x: boxX, y: 2.7, w: boxW, h: 0.07,
+      fill: { color: C.LAVENDER }, line: { color: C.LAVENDER }
+    });
+
+    const datas = (r.inicio || r.fim) ? `${fmtDate(r.inicio)} a ${fmtDate(r.fim)}\n` : '';
+    s.addText(datas + r.desc, {
+      x: boxX + 0.1, y: 2.85, w: boxW - 0.2, h: 2.1,
+      fontFace: 'Urbanist', fontSize: 10, align: 'center', valign: 'top', wrap: true, lineSpacingMultiple: 1.3
+    });
   });
 }
 
-function buildSlideMetrics(pres, par, perf, ads, vis) {
-  const s = pres.addSlide(); s.background = { color: C.BG_PRI };
-  s.addText('Expectativa de Alcance', { x: 0.45, y: 0.4, w: 8.0, h: 0.6, fontFace: 'Urbanist', fontSize: 32, bold: true });
-  const data = [{v:perf, t:'Perfis Aderentes'},{v:par, t:'Parceiros Ativos'},{v:ads, t:'Impressões Ads'},{v:vis, t:'Visitas Site'}];
+// ─── SLIDE 9: MÉTRICAS ──────────────────────────────────
+function buildSlideMetrics(pres, parceiros, perfis, impressoes, visitas) {
+  const s = pres.addSlide();
+  s.background = { color: C.BG_PRI };
+  s.addShape(pres.ShapeType.rect, { x: 0, y: 0, w: 0.08, h: '100%', fill: { color: C.LAVENDER }, line: { color: C.LAVENDER } });
+
+  s.addText('Expectativa de Alcance', {
+    x: 0.5, y: 0.4, w: 9.0, h: 0.65,
+    fontFace: 'Urbanist', fontSize: 30, bold: true, color: C.TEXT_PRI
+  });
+
+  const colors = [C.PINK, C.LAVENDER, C.BLUE, C.BG_SEC];
+  const data = [
+    { v: perfis,     t: 'Perfis Aderentes' },
+    { v: parceiros,  t: 'Parceiros Estratégicos' },
+    { v: impressoes, t: 'Impressões Ads' },
+    { v: visitas,    t: 'Visitas Site' }
+  ];
+
   data.forEach((m, i) => {
-    let x = 0.5 + (i * 2.3);
-    s.addShape(pres.shapes.ROUNDED_RECTANGLE, { x, y: 2.0, w: 2.1, h: 2.2, fill: { color: C.BG_PRI }, line: { color: C.BORDER }, rectRadius: 0.1 });
-    s.addText(m.v, { x, y: 2.4, w: 2.1, h: 0.8, fontFace: 'Urbanist', fontSize: 32, bold: true, align: 'center' });
-    s.addText(m.t, { x, y: 3.3, w: 2.1, h: 0.5, fontFace: 'Inter', fontSize: 11, align: 'center', bold: true, color: C.TEXT_SEC });
+    const x = 0.5 + i * 2.35;
+    s.addShape(pres.ShapeType.roundRect, {
+      x, y: 1.6, w: 2.2, h: 2.6,
+      fill: { color: colors[i] }, line: { color: C.BORDER }, rectRadius: 0.1
+    });
+    s.addText(m.v || '—', {
+      x, y: 2.1, w: 2.2, h: 0.8,
+      fontFace: 'Urbanist', fontSize: 28, bold: true, align: 'center', color: C.TEXT_PRI
+    });
+    s.addText(m.t, {
+      x, y: 3.1, w: 2.2, h: 0.6,
+      fontFace: 'Inter', fontSize: 11, align: 'center', bold: true, color: C.TEXT_SEC, wrap: true
+    });
   });
 }
 
-// ─── MAIN GENERATOR ──────────────────────────────────────
+// ─── SLIDE 10: OBRIGADO ─────────────────────────────────
+function buildSlideThanks(pres, empresa) {
+  const s = pres.addSlide();
+  s.background = { color: C.BG_PRI };
 
+  s.addShape(pres.ShapeType.rect, { x: 0, y: 0, w: '100%', h: 0.18, fill: { color: C.LAVENDER }, line: { color: C.LAVENDER } });
+  s.addShape(pres.ShapeType.rect, { x: 0, y: 5.32, w: '100%', h: 0.18, fill: { color: C.PINK }, line: { color: C.PINK } });
+
+  s.addText('Obrigado!', {
+    x: 0.5, y: 1.5, w: 9.0, h: 1.2,
+    fontFace: 'Urbanist', fontSize: 64, bold: true, align: 'center', color: C.TEXT_PRI
+  });
+  s.addText('99jobs.com', {
+    x: 0.5, y: 3.0, w: 9.0, h: 0.5,
+    fontFace: 'Urbanist', fontSize: 22, align: 'center', color: C.TEXT_SEC, bold: true
+  });
+  if (empresa) {
+    s.addText(`Apresentação gerada para: ${empresa}`, {
+      x: 0.5, y: 3.65, w: 9.0, h: 0.35,
+      fontFace: 'Inter', fontSize: 12, align: 'center', color: C.TEXT_SEC
+    });
+  }
+}
+
+// ─── MAPA NÍVEL → LABEL ─────────────────────────────────
+const NIVEL_LABELS = {
+  estagio:    'Estágio / Jovem Aprendiz',
+  trainee:    'Trainee',
+  senior:     'Sênior / Especialista',
+  executivo:  'Executivo / Liderança',
+  operacional:'Operacional'
+};
+
+// ─── GERADOR PRINCIPAL ──────────────────────────────────
 async function gerarApresentacao() {
   const btn = document.getElementById('generate-btn');
-  const pb = document.getElementById('progress-bar');
-  btn.disabled = true; pb.style.display = 'block';
-  btn.innerHTML = 'Gerando...';
+  const errBadge = document.getElementById('badge-error');
+  errBadge.style.display = 'none';
+  btn.disabled = true;
+  btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Gerando...';
+  document.getElementById('progress-bar').style.display = 'block';
+  setProgress(5, 'Iniciando geração...');
 
   try {
-    const empresa = document.getElementById('empresa').value;
-    const nivel = document.getElementById('nivel').value;
-    const adsRows = [...document.getElementById('ads-rows').querySelectorAll('.ads-row')].map(row => {
-      const inp = row.querySelectorAll('input'); return { cid: inp[0].value, raio: inp[1].value, perf: inp[2].value, pol: inp[3].value };
-    });
-    const cronoRows = [...document.getElementById('crono-rows').querySelectorAll('.crono-row')].map(row => {
-      const inp = row.querySelectorAll('input'); return { inicio: inp[0].value, fim: inp[1].value, desc: inp[2].value };
-    });
-
     const pres = new PptxGenJS();
     pres.layout = 'LAYOUT_16x9';
 
-    buildSlideCover(pres, empresa);
-    buildSlideObjective(pres, document.getElementById('objetivo').value, document.getElementById('data-doc').value);
-    buildSlideScope(pres, document.getElementById('vagas').value, document.getElementById('localidades').value, document.getElementById('areas').value, document.getElementById('periodo').value, document.getElementById('diversidade').value, document.getElementById('modalidade').value);
-    buildSlideGenZ(pres, nivel);
-    buildSlideAds(pres, adsRows, nivel);
-    buildSlideLogos(pres, parseInt(document.getElementById('num-logos').value));
-    buildSlideTimeline(pres, cronoRows, document.getElementById('data-lancamento').value, document.getElementById('data-encerramento').value);
-    buildSlideMetrics(pres, document.getElementById('m-parceiros').value, document.getElementById('m-perfis').value, document.getElementById('m-impressoes').value, document.getElementById('m-visitas').value);
+    // Leitura dos valores
+    const empresa  = v('empresa');
+    const programa = v('programa');
+    const dataDoc  = v('data-doc');
+    const nivel    = v('nivel');
+    const objetivo = v('objetivo');
 
-    await pres.writeFile({ fileName: `Plano_Divulgacao_${empresa || '99jobs'}.pptx` });
-    document.getElementById('progress-fill').style.width = '100%';
-  } catch(e) { console.error(e); } 
-  finally { btn.disabled = false; btn.innerHTML = '<i class="fa-solid fa-wand-magic-sparkles"></i> Gerar Apresentação Completa (.pptx)'; }
+    const adsRows = [...document.querySelectorAll('#ads-rows .dynamic-row')].map(row => {
+      const inp = row.querySelectorAll('input');
+      return { cid: inp[0]?.value || '', raio: inp[1]?.value || '', perf: inp[2]?.value || '', pol: inp[3]?.value || '' };
+    });
+
+    const canaisSel = CANAIS_DATA.filter(c => {
+      const el = document.getElementById('canal-' + c.id);
+      return el && el.checked;
+    });
+
+    const cronoRows = [...document.querySelectorAll('#crono-rows .dynamic-row')].map(row => {
+      const inp = row.querySelectorAll('input');
+      return { inicio: inp[0]?.value || '', fim: inp[1]?.value || '', desc: inp[2]?.value || '' };
+    });
+
+    const numLogos = Math.max(1, parseInt(v('num-logos')) || 6);
+
+    setProgress(15, 'Capa...'); buildSlideCover(pres, empresa, programa, dataDoc);
+    setProgress(25, 'Objetivo...'); buildSlideObjective(pres, objetivo, dataDoc);
+    setProgress(35, 'Escopo...'); buildSlideScope(
+      pres, v('vagas'), v('localidades'), v('areas'), v('periodo'), v('diversidade'), v('modalidade')
+    );
+    setProgress(45, 'Público-alvo...'); buildSlideAudience(pres, nivel);
+    setProgress(52, 'Ads...'); buildSlideAds(pres, adsRows, NIVEL_LABELS[nivel] || nivel);
+    setProgress(60, 'Canais...'); buildSlideChannels(pres, canaisSel);
+    setProgress(68, 'Instituições...'); buildSlideLogos(pres, numLogos);
+    setProgress(76, 'Cronograma...'); buildSlideTimeline(
+      pres, cronoRows, v('data-lancamento'), v('data-encerramento')
+    );
+    setProgress(85, 'Métricas...'); buildSlideMetrics(
+      pres, v('m-parceiros'), v('m-perfis'), v('m-impressoes'), v('m-visitas')
+    );
+    setProgress(93, 'Encerramento...'); buildSlideThanks(pres, empresa);
+
+    setProgress(98, 'Salvando arquivo...');
+    const fileName = `Estrategia_99jobs_${(empresa || 'Cliente').replace(/\s+/g, '_')}.pptx`;
+    await pres.writeFile({ fileName });
+
+    setProgress(100, '✅ Apresentação gerada com sucesso!');
+
+  } catch (e) {
+    console.error('[99jobs PPTX Error]', e);
+    errBadge.textContent = '❌ Erro ao gerar: ' + e.message;
+    errBadge.style.display = 'block';
+    setProgress(0, '');
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = '<i class="fa-solid fa-wand-magic-sparkles"></i> Gerar Apresentação Completa (.pptx)';
+  }
 }
 </script>
 </body>
